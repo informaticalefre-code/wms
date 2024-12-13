@@ -1,0 +1,28 @@
+Para llevarse a producción
+1. CREAR VISTA vpacking_tarea *** HECHO ***
+2. crear funciòn fdif_packing_pedidos *** HECHO ***
+3. Crear vista vpedidos_packing_dif 
+4. Crear el trigger tpacking_tr04 *** HECHO ***
+5. Crear indice tpacking_idx01 *** HECHO ***
+6. Revisar tablas que tienen COLLATE utfmb3_general_ci tanto en definición de tabla como en campos.
+   Las más importantes son tpicking, tpicking_detalle, tpacking y tpacking_detalle *** HECHO ***
+7. Modificar la función fdif_picking_pedidos() y quitar los collate del SELECT-SQL *** HECHO ***
+8. Modificar el constraint tpicking_detalle_c01, corregir el nombre y que la condición sea contra lo requerido *** HECHO ***
+9. Modificar el trigger tpicking_detalle_tr02. Hacer que la restricción que
+   dice "Cantidad a verificar no puede superar lo anclado" sea contra lo requerido. *** HECHO ***
+10. Modificar el trigger tpacking_tr04 y colocar la siguiente condicion en el select:
+    AND pacd_cantidad != pacd_requerido; *** HECHO ***
+11. Modificar vista vpicking_tarea y asegurarse que tenga el campo pick_idpicking *** HECHO ***
+12. Crear vista vpedidos_picking_dif *** HECHO ***
+13. Se modificó la funció fdif_picking_pedidos y fdif_packing_pedidos. *** HECHO ***
+
+
+	/* Aquí eliminamos cualquier caja vacía que no tenga productos,
+	   y solo se ejecuta al cerrar la tarea de packing*/
+	/*DELETE FROM vpacking_bultos
+    WHERE vpacking_bultos.pack_idpacking = new.pack_idpacking
+      AND vpacking_bultos.pack_status = 0
+	   AND NOT EXISTS (SELECT vpacking_productos.pacp_idproducto  
+		                  FROM vpacking_productos 
+							  WHERE vpacking_productos.pacp_idpacking = vpacking_bultos.pack_idpacking 
+							    AND vpacking_productos.pacp_idbulto = vpacking_bultos.pack_idbulto);*/

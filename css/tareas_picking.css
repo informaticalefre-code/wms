@@ -1,0 +1,102 @@
+
+
+
+body {
+    background: #ffffff;
+}
+
+#pedidos-lista-picking {
+    display:flex;
+    flex-direction:row;
+    flex-wrap: wrap ;
+    justify-content: space-evenly ;
+}
+
+.pedido-tarjeta {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    overflow: hidden;
+    border-radius: 1.5rem/2rem;
+    -webkit-box-shadow: 6px 14px 27px 0px rgba(0,0,0,0.39); 
+    box-shadow: 6px 14px 27px 0px rgba(0,0,0,0.39);
+    background-color: white;
+    width: 95%;
+    height: 180px;
+    margin: 1% 1% 15px 1%;
+    /* margin-bottom:1%; */
+    max-width: 350px;
+    max-height: 180px;
+    min-width: 280px;
+    min-height: 150px;
+}
+
+.pedido-header {
+    height: 30%;
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+}
+
+.pedido-header p {
+    font-size: 2.3rem;
+    font-weight: bolder;
+    width: 70%;
+}
+
+.pedido-header button {
+    height: 100%;
+    font-size:40px;
+    padding: 0;
+}
+
+
+.pedido-body{
+    padding: 5px 5%;
+    height: 65%;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.pedido-body p:first-of-type {
+    text-align:right;
+    font-size: 1em;
+    font-weight:bolder;
+}
+
+.pedido-body p {
+    text-align:left;
+    font-size: 1rem;
+    font-weight:300;
+}
+
+.pedido-footer {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    height: 20%;
+    width: 90%;
+    border-top: 1px solid darkslategrey;
+}
+
+.pedido-footer a {
+    height: 70%;
+    width: 50%;
+    max-width: 150px;
+}
+
+
+#div_boton_mas {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+
+#lista_carga_mas {
+    width: 80%;
+    max-width: 300px;
+}

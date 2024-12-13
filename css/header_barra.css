@@ -1,0 +1,71 @@
+#barra_id {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    background-color: #1b6404;
+    overflow: hidden;
+    z-index: 2;
+}
+
+#barra_botones {
+    background-color:inherit;
+    display: flex;
+    justify-content: space-between;
+}
+
+.barra_btn {
+    background-color: inherit;
+}
+
+.barra_btn:hover {
+    background-color: #597e4e;
+}            
+
+.nav-botones {
+    width:40px;
+}        
+
+#barra-cont-form-search{
+    display: block;
+    background:#525252;
+    text-align: center;
+    z-index: 1;
+    position:absolute;
+    top: 0;
+    transform: translateY(-56px);
+    width: 100%;
+}
+
+ #barra-cont-form-search button{
+    background-color: inherit;
+}
+
+#search-input {
+    background:none;
+    outline:none;
+    color: #ffffff;
+    border:none;
+    border-bottom:1px solid white;
+    font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif; 
+    font-weight: 300;
+    font-size:26px;
+    text-align: center;
+}
+
+.btn-menu-toggler {
+    border-color: white;
+}
+
+/* Importante... esto hace que cuando cambie la letra de menu al icono de list se produzca 
+   un ligero incremento de la barra contenedora de los iconos 
+   Por eso se coloca !important*/
+.navbar-toggler {
+	padding: 0 !important;
+}
+
+
+@media screen and (max-width: 500px) {
+    #search-input {
+        font-size:1.5rem;
+    }
+}

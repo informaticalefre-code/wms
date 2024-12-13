@@ -1,0 +1,197 @@
+body {
+    background: #ffffff;
+}
+
+body:not(.modal-open){
+    /* Esta linea si se quita se observa un comportamiento anormal cuando aparecen
+    las ventanas modal */
+    padding-right: 0px !important;
+}
+
+#barra-cont-form-search{
+    opacity : 0;
+}
+
+#picking-tabla {
+    border-radius: 10px;
+    overflow: hidden;
+    width: 100%;
+}
+  
+
+#picking-tabla td, table th {
+    /*color: #2b686e; */
+    padding: 10px;
+}
+  
+#picking-tabla td {
+    text-align: center;
+    vertical-align: middle;
+}
+
+#picking-tabla th {
+    background-color: #d8ffd3;
+    font-weight: 300;
+}
+
+#picking-tabla tr:nth-child(2n) {
+    background-color: white;
+}
+
+#picking-tabla tr:nth-child(2n+1) {
+    background-color:#F2F2F2;
+}
+
+#div_boton_mas {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+
+#lista_carga_mas {
+    width: 80%;
+    max-width: 300px;
+}
+
+.col_actions{
+    display: flex;
+    flex-wrap: nowrap;
+    gap: 4px;
+    justify-content: center;
+}
+
+label {
+    color: #616161;
+}
+
+/*********************************************
+/ MODAL DE LA DISTRIBUCIÓN DE LOS BULTOS     */
+.bulto-titulo {
+    font-weight: bold;
+}
+
+.bulto-prod-idproducto {
+    width: 150px;
+}
+
+.bulto-prod-cantidad {
+    width: 60px;
+    text-align:right;
+}
+/**************************************************/
+
+
+@media screen and (max-width: 700px) {
+    #picking-tabla tr {
+        width: 100vw;
+    }
+    
+    #picking-tabla, tr, td {
+      display: block;
+    }
+
+    #picking-tabla td {
+        text-align: left;
+    } 
+  
+    #picking-tabla td:first-child {
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+        text-align: center;
+        width: 100px;
+    }
+    #picking-tabla td:not(:first-child) {
+        clear: both;
+        margin-left: 100px;
+        padding: 4px 20px 4px 90px;
+        position: relative;
+        text-align: left;
+    }
+    #picking-tabla td:not(:first-child):before {
+        color: #026222;
+        content: "";
+        display: block;
+        left: 0;
+        position: absolute;
+    }
+    #picking-tabla td:nth-child(2):before {
+        content: "Fecha:";
+    }
+    #picking-tabla td:nth-child(3):before {
+        content: "Pedido:";
+    }
+    #picking-tabla td:nth-child(4):before {
+        content: "Prioridad:";
+    }
+    #picking-tabla td:nth-child(5):before {
+        content: "Preparador:";
+    }
+    #picking-tabla td:nth-child(6):before {
+        content: "Estatus:";
+    }
+    #picking-tabla td:nth-child(7):before {
+        content: "Acción:";
+    }
+
+    #picking-tabla tr {
+        padding: 10px 0;
+        position: relative;
+    }
+    
+    .tabla-header{
+        display: none;
+    }
+  }
+  
+  @media screen and (max-width: 500px) {
+    .header {
+      background-color: transparent;
+      color: #6b6b6b;
+      font-size: 2em;
+      font-weight: 700;
+      padding: 0;
+      text-shadow: 2px 2px 0 rgba(0, 0, 0, 0.1);
+    }
+  
+    #picking-tabla td:first-child {
+      background-color: #d8ffd3;
+      border-bottom: 1px solid #dee2e6;
+      border-radius: 10px 10px 0 0;
+      position: relative;
+      top: 0;
+      transform: translateY(0);
+      width: 100vw;
+    }
+
+    #picking-tabla td:not(:first-child) {
+      margin: 0;
+      padding: 5px 1em;
+      width: 100%;
+    }
+
+    #picking-tabla td:not(:first-child):before {
+      font-size: 0.8em;
+      padding-top: 0.3em;
+      position: relative;
+    }
+
+    #picking-tabla td:last-child {
+      padding-bottom: 1rem !important;
+    }
+  
+    #picking-tabla tr {
+      background-color: white !important;
+      border: 1px solid #dee2e6;
+      border-radius: 10px;
+      box-shadow: 2px 2px 0 rgba(0, 0, 0, 0.1);
+      margin: 0.5rem 0;
+      padding: 0;
+    }
+  
+    /* #picking-tabla {
+      border: none;
+      box-shadow: none;
+      overflow: visible;
+    } */
+}

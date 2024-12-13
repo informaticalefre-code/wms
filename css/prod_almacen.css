@@ -1,0 +1,245 @@
+body {
+    background: #ffffff;
+}
+
+body:not(.modal-open){
+    /* Esta linea si se quita se observa un comportamiento anormal cuando aparecen
+    las ventanas modal */
+    padding-right: 0px !important;
+}
+
+#barra-cont-form-search{
+    opacity : 0;
+}
+
+#productos-tabla {
+    border-radius: 10px;
+    overflow: hidden;
+    width: 100%;
+}
+
+#productos-tabla td, #productos-tabla th {
+    /*color: #2b686e; */
+    padding: 10px;
+}
+
+#productos-tabla td:first-child {
+    min-width: 110px;
+}
+
+#productos-tabla td {
+    text-align: center;
+}
+
+#productos-tabla td:nth-child(2) {
+    text-align: left;
+}
+  
+#productos-tabla th {
+    background-color: #d8ffd3;
+    font-weight: 300;
+    text-align: center;
+    vertical-align: middle;    
+}
+
+#productos-tabla tr:nth-child(2n) {
+    background-color: white;
+}
+
+#productos-tabla tr:nth-child(2n+1) {
+    background-color:#F2F2F2;
+}
+
+#div_boton_mas {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+
+#lista_carga_mas {
+    width: 80%;
+    max-width: 300px;
+}
+
+.col_actions{
+    display: flex;
+    flex-wrap: nowrap;
+    gap: 4px;
+}
+
+label {
+    color: #616161;
+}
+
+#ProductoModalBody-Info {
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+    flex-wrap: wrap;
+
+}
+
+#ProductoModalBody-Info input {
+    border: none;
+}
+
+#ProductoModalBody-Info input:disabled {
+    color:  #474747;
+}
+
+#ubicaciones-prod{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.ubicaciones-line{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    flex-wrap: nowrap;
+    padding:0;
+    max-width: 300px;
+}
+
+.container-linea{
+    display: flex;
+    flex-direction: row;
+    /* justify-self: space-between; */
+    flex-wrap: nowrap;
+    box-sizing: border-box;
+    align-content: center;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.container-campo{
+    display: flex;
+    flex-direction: row;
+    flex-wrap:nowrap;
+    box-sizing: border-box;
+}
+
+.label-campo{
+    width:5rem;
+}
+
+@media screen and (max-width: 700px) {
+    #productos-tabla tr {
+        width: 100vw;
+    }
+
+    #productos-tabla, tr, td {
+      display: block;
+    }
+  
+    #productos-tabla td:first-child {
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+        width: 110px;
+    }
+    #productos-tabla td:not(:first-child) {
+        clear: both;
+        margin-left: 100px;
+        padding: 4px 20px 4px 90px;
+        position: relative;
+        text-align: left;
+    }
+    #productos-tabla td:not(:first-child):before {
+        color: #026222;
+        content: "";
+        display: block;
+        left: 0;
+        position: absolute;
+    }
+    #productos-tabla td:nth-child(2):before {
+        content: "Nombre:";
+    }
+    #productos-tabla td:nth-child(3):before {
+        content: "Unidad:";
+    }
+    #productos-tabla td:nth-child(4):before {
+        content: "Existencia:";
+    }
+    #productos-tabla td:nth-child(5):before {
+        content: "Ubicación:";
+    }
+    #productos-tabla td:nth-child(6):before {
+        content: "Ref:";
+    }
+    #productos-tabla td:nth-child(7):before {
+        content: "Marca:";
+    }
+    #productos-tabla td:nth-child(8):before {
+        content: "Acción:";
+    }
+
+    #productos-tabla tr {
+        padding: 10px 0;
+        position: relative;
+    }
+    
+    .tabla-header{
+        display: none;
+    }
+  }
+
+  @media screen and (max-width: 500px) {
+    .header {
+      background-color: transparent;
+      color: #6b6b6b;
+      font-size: 2em;
+      font-weight: 700;
+      padding: 0;
+      text-shadow: 2px 2px 0 rgba(0, 0, 0, 0.1);
+    }
+  
+    #productos-tabla td:first-child {
+      background-color: #d8ffd3;
+      border-bottom: 1px solid #dee2e6;
+      border-radius: 10px 10px 0 0;
+      position: relative;
+      top: 0;
+      transform: translateY(0);
+      width: 100vw;
+    }
+
+    #productos-tabla td:not(:first-child) {
+      margin: 0;
+      padding: 5px 1em;
+      width: 100%;
+    }
+
+    #productos-tabla td:not(:first-child):before {
+      font-size: 0.8em;
+      padding-top: 0.3em;
+      position: relative;
+    }
+
+    #productos-tabla td:last-child {
+      padding-bottom: 1rem !important;
+    }
+  
+    #productos-tabla tr {
+      background-color: white !important;
+      border: 1px solid #dee2e6;
+      border-radius: 10px;
+      box-shadow: 2px 2px 0 rgba(0, 0, 0, 0.1);
+      margin: 0.5rem 0;
+      padding: 0;
+    }
+  
+    .table-pedidos {
+      border: none;
+      box-shadow: none;
+      overflow: visible;
+    }
+
+    .container-linea{
+        flex-wrap:wrap;
+    }
+
+
+}

@@ -1,0 +1,77 @@
+:root {
+    --header-bg-color: darkcyan;
+    /* lightseagreen mediumseagreen */
+}
+
+body {
+    background: #ffffff;
+}
+
+#pedidos-lista-picking {
+    display:flex;
+    flex-direction:row;
+    flex-wrap: wrap ;
+    justify-content: space-evenly ;
+}
+
+.picking-card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    overflow: hidden;
+    border-radius: 1.5rem/2rem;
+    -webkit-box-shadow: 6px 14px 27px 0px rgba(0,0,0,0.39); 
+    box-shadow: 6px 14px 27px 0px rgba(0,0,0,0.39);
+    background-color: white;
+    width: 95%;
+    height: 150px;
+    margin: 1% 1% 15px 1%;
+    /* margin-bottom:1%; */
+    max-width: 400px;
+    max-height: 180px;
+    min-width: 330px;
+    min-height: 150px;
+}
+
+.picking-card-header {
+    height: 30%;
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    /* background-color: #69015A; */
+    background-color: var(--header-bg-color);
+}
+
+.picking-card-header p {
+    font-size: 2.3rem;
+    font-weight: bolder;
+    width: 70%;
+    align-self: center;
+}
+
+.picking-card-header button {
+    height: 100%;
+    font-size:35px;
+    padding: 0;
+    background-color: var(--header-bg-color);
+    line-height: 0.5;
+}
+
+.picking-card-header button i{
+    color:white;
+}
+
+
+.picking-card-body{
+    padding: 5px 5%;
+    height: 65%;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.picking-card-body p{
+    text-transform: capitalize;
+}

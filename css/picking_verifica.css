@@ -1,0 +1,127 @@
+:root {
+    /* --header-bg-color: slategray; */
+    --header-bg-color:olivedrab;
+    /* --header-bg-color: peru; */
+    
+    /*cornflowerblue dodgerblue cadetblue mediumslateblue*/
+    /* --pista-title-bg-color:sienna; */
+    --pista-title-bg-color:darkgoldenrod;
+    --pista-bg-color: papayawhip;
+}
+
+
+body {
+    background: #ffffff;
+    animation: fadeInAnimation ease 0.5s;
+    animation-iteration-count: 1;
+    animation-fill-mode: forwards;
+}
+
+body:not(.modal-open){
+    padding-right: 0px !important;
+}
+
+@keyframes fadeInAnimation {
+    0% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+    }
+}
+
+
+#main_screen {
+    padding: 0 1%;
+}
+
+#pistas-container{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    flex-wrap: wrap;
+}    
+
+.pistas {
+    background-color:var(--pista-bg-color);
+    padding: 1%;
+    padding-top:0;
+    width: 100%;
+    margin-bottom: 10px;
+}
+
+.pista-title{
+    /* border-radius: 1.5rem/2rem; */
+    background-color: var(--pista-title-bg-color);
+    padding: 5px;
+    margin-top:0;
+    margin-bottom: 10px;
+    text-align: center;
+    font-weight: 600;
+    font-size:1.5rem;
+    -webkit-box-shadow: 6px 14px 27px 0px rgba(0,0,0,0.39);
+    box-shadow: 6px 14px 27px 0px rgba(0,0,0,0.39);
+    color:white;
+}
+
+.palet-card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    overflow: hidden;
+    border-radius: 1.5rem/2rem;
+    -webkit-box-shadow: 6px 14px 27px 0px rgba(0,0,0,0.39);
+    box-shadow: 6px 14px 27px 0px rgba(0,0,0,0.39);
+    background-color: white;
+    min-height: 120px;
+    margin: 1% 1% 20px 1%;
+    width: 95%;
+}
+
+.palet-card-header {
+    height: 30%;
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    background-color: var(--header-bg-color);
+    font-size: 1.3rem;
+    font-weight: bolder;
+}
+
+.palet-card-body {
+    /* padding:5px; */
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    flex-wrap: wrap;
+    flex-grow: 1;
+}
+
+.palet-card-body button {
+	align-self:center;
+    height: 45px;
+    /* font-size: 1.2rem; */
+	font-weight: bold;    
+    color: white;
+    margin:3px;
+}
+
+
+@media screen and (min-width: 500px) {
+    .pistas {
+        max-width: 220px;
+    }
+
+    .palet-card-header {
+        /* height: 30%;
+        width: 100%;
+        display: flex; */
+        flex-direction: row;
+        justify-content: space-around;
+        background-color: var(--header-bg-color);
+        font-size: 1.5rem;
+        font-weight: bolder;
+    }
+
+}

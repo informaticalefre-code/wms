@@ -1,0 +1,190 @@
+body {
+    background: #ffffff;
+}
+
+body:not(.modal-open){
+    /* Esta linea si se quita se observa un comportamiento anormal cuando aparecen
+    las ventanas modal */
+    padding-right: 0px !important;
+}
+
+#btn-add{
+    height:30px;
+    margin:0.1rem 0.5rem;
+    padding:0.2rem 0.75rem;
+}
+
+.contadores{
+    margin-bottom:5px;
+    width: clamp(10rem, 90%, 15rem);
+}
+
+#container-selects{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.container-campo{
+    display: flex;
+    flex-wrap: nowrap;
+}
+
+#inventarios-tabla {
+    border-radius: 10px;
+    overflow: hidden;
+    width: 100%;
+}
+  
+#inventarios-tabla td, #inventarios-tabla th {
+    /*color: #2b686e; */
+    padding: 10px;
+}
+  
+#inventarios-tabla td {
+    text-align: center;
+    vertical-align: middle;
+}
+
+#inventarios-tabla th {
+    background-color: #d8ffd3;
+    font-weight: 300;
+}
+
+#inventarios-tabla tr:nth-child(2n) {
+    background-color: white;
+}
+
+#inventarios-tabla tr:nth-child(2n+1) {
+    background-color:#F2F2F2;
+}
+
+#div_boton_mas {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+
+#lista_carga_mas {
+    width: 80%;
+    max-width: 300px;
+}
+
+.col_actions{
+    display: flex;
+    flex-wrap: nowrap;
+    gap: 4px;
+    justify-content: center;
+}
+
+@media screen and (max-width: 700px) {
+    #inventarios-tabla tr {
+        width: 100vw;
+    }
+
+    #inventarios-tabla, tr, td {
+      display: block;
+    }
+  
+    #inventarios-tabla td:first-child {
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+        width: 100px;
+    }
+    #inventarios-tabla td:not(:first-child) {
+        clear: both;
+        margin-left: 100px;
+        padding: 4px 20px 4px 100px;
+        position: relative;
+        text-align: left;
+    }
+    #inventarios-tabla td:not(:first-child):before {
+        color: #026222;
+        content: "";
+        display: block;
+        left: 0;
+        position: absolute;
+    }
+    #inventarios-tabla td:nth-child(2):before {
+        content: "Inicio:";
+    }
+    #inventarios-tabla td:nth-child(3):before {
+        content: "Fin:";
+    }
+    #inventarios-tabla td:nth-child(4):before {
+        content: "Estatus:";
+    }
+    #inventarios-tabla td:nth-child(5):before {
+        content: "Observación:";
+    }
+    #inventarios-tabla td:nth-child(6):before {
+        content: "Acción:";
+    }
+
+    #inventarios-tabla tr {
+        padding: 10px 0;
+        position: relative;
+    }
+    
+    .tabla-header{
+        display: none;
+    }
+
+    .col_actions{
+        gap: 5px;
+        justify-content: initial;
+    }
+  }
+
+  @media screen and (max-width: 500px) {
+    .header {
+      background-color: transparent;
+      color: #6b6b6b;
+      font-size: 2em;
+      font-weight: 700;
+      padding: 0;
+      text-shadow: 2px 2px 0 rgba(0, 0, 0, 0.1);
+    }
+  
+    #inventarios-tabla td:first-child {
+      background-color: #d8ffd3;
+      border-bottom: 1px solid #dee2e6;
+      border-radius: 10px 10px 0 0;
+      position: relative;
+      top: 0;
+      transform: translateY(0);
+      width: 100vw;
+    }
+
+    #inventarios-tabla td:not(:first-child) {
+      margin: 0;
+      padding: 5px 1em;
+      width: 100%;
+    }
+
+    #inventarios-tabla td:not(:first-child):before {
+      font-size: 0.8em;
+      padding-top: 0.3em;
+      position: relative;
+    }
+
+    #inventarios-tabla td:last-child {
+      padding-bottom: 1rem !important;
+    }
+  
+    #inventarios-tabla tr {
+      background-color: white !important;
+      border: 1px solid #dee2e6;
+      border-radius: 10px;
+      box-shadow: 2px 2px 0 rgba(0, 0, 0, 0.1);
+      margin: 0.5rem 0;
+      padding: 0;
+    }
+  
+    .table-pedidos {
+      border: none;
+      box-shadow: none;
+      overflow: visible;
+    }
+}

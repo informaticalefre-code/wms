@@ -1,0 +1,211 @@
+body {
+    background: #ffffff;
+}
+
+body:not(.modal-open){
+    /* Esta linea si se quita se observa un comportamiento anormal cuando aparecen
+    las ventanas modal */
+    padding-right: 0px !important;
+}
+
+#barra-cont-form-search{
+    opacity : 0;
+}
+
+#reservados-tabla {
+    border: 1px solid #dee2e6;
+    border-radius: 10px;
+    /* box-shadow: 3px 3px 0 rgba(0, 0, 0, 0.1); */
+    /* max-width: calc(100% - 2em); */
+    margin: 1em auto;
+    overflow: hidden;
+    width: 100%;
+}
+
+#reservados-tabla td, #reservados-tabla th {
+    /*color: #2b686e; */
+    padding: 10px;
+}
+  
+#reservados-tabla td {
+    text-align: center;
+    vertical-align: middle;
+}
+
+#reservados-tabla td:nth-child(2) {
+    text-align: left;
+}    
+
+#reservados-tabla td:nth-child(3), #reservados-tabla td:nth-child(4),#reservados-tabla td:nth-child(5) {
+    text-align: right;
+}    
+  
+#reservados-tabla th {
+    background-color: #d8ffd3;
+    font-weight: 300;
+}
+
+#reservados-tabla tr:nth-child(2n) {
+    background-color: white;
+}
+
+#reservados-tabla tr:nth-child(2n+1) {
+    background-color:#F2F2F2;
+}
+
+
+.ficha-reservado {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    padding: 0;
+    justify-content: space-between;
+}
+
+.ficha-body{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    width: 80%;
+}
+
+.ficha-body-header, .ficha-body-detail{
+    width:100%;
+}
+
+.ficha-body-header{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    justify-content: space-between;
+    /* width: 100%; */
+}
+
+.ficha-cantidad{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 20%;
+    font-size: 1.5rem;
+}
+
+
+#div_boton_mas {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+
+#lista_carga_mas {
+    width: 80%;
+    max-width: 300px;
+}
+
+
+@media screen and (max-width: 700px) {
+    #reservados-tabla tr {
+        width: 100vw;
+    }
+    
+    #reservados-tabla, tr, td {
+      display: block;
+    }
+  
+    #reservados-tabla td:first-child {
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+        width: 100px;
+    }
+    #reservados-tabla td:not(:first-child) {
+        clear: both;
+        margin-left: 100px;
+        padding: 4px 20px 4px 90px;
+        position: relative;
+        text-align: left;
+    }
+    #reservados-tabla td:not(:first-child):before {
+        color: #026222;
+        content: "";
+        display: block;
+        left: 0;
+        position: absolute;
+    }
+    #reservados-tabla td:nth-child(2):before {
+        content: "nombre:";
+    }
+    #reservados-tabla td:nth-child(3):before {
+        content: "Existencia:";
+    }
+    #reservados-tabla td:nth-child(4):before {
+        content: "Reservado:";
+    }
+    #reservados-tabla td:nth-child(5):before {
+        content: "Disponible:";
+    }
+    #reservados-tabla td:nth-child(6):before {
+        content: "Acción:";
+    }
+  
+    #reservados-tabla tr {
+        padding: 10px 0;
+        position: relative;
+    }
+    
+    .tabla-header{
+        display: none;
+    }
+  }
+  
+  @media screen and (max-width: 500px) {
+    .header {
+      background-color: transparent;
+      color: #6b6b6b;
+      font-size: 2em;
+      font-weight: 700;
+      padding: 0;
+      text-shadow: 2px 2px 0 rgba(0, 0, 0, 0.1);
+    }
+  
+    #reservados-tabla td:first-child {
+      background-color: #d8ffd3;
+      border-bottom: 1px solid #dee2e6;
+      border-radius: 10px 10px 0 0;
+      position: relative;
+      top: 0;
+      transform: translateY(0);
+      width: 100vw;
+    }
+
+    #reservados-tabla td:not(:first-child) {
+      margin: 0;
+      padding: 5px 1em;
+      width: 100%;
+    }
+
+    #reservados-tabla td:not(:first-child):before {
+      font-size: 0.8em;
+      padding-top: 0.3em;
+      position: relative;
+    }
+
+    #reservados-tabla td:last-child {
+      padding-bottom: 1rem !important;
+    }
+  
+    #reservados-tabla tr {
+      background-color: white !important;
+      border: 1px solid #dee2e6;
+      border-radius: 10px;
+      box-shadow: 2px 2px 0 rgba(0, 0, 0, 0.1);
+      margin: 0.5rem 0;
+      padding: 0;
+    }
+  
+    /* #reservados-tabla {
+      border: none;
+      box-shadow: none;
+      overflow: visible;
+    } */
+}

@@ -1,0 +1,79 @@
+body {
+    background: #ffffff;
+}
+
+body:not(.modal-open){
+    /* Esta linea si se quita se observa un comportamiento anormal cuando aparecen
+    las ventanas modal */
+    padding-right: 0px !important;
+}
+
+#main_screen {
+    padding: 0 1%;
+}
+
+.detalle-row{
+    padding: 0;
+}
+
+.detalle-row p{
+    margin-bottom:0;
+    font-size:0.9rem;
+}
+
+.detalle-row div:nth-child(2){
+    width: 130px;
+    min-width: 100px;
+}
+
+.detalle-row div:nth-child(3){
+    flex-grow:1;
+}
+
+.detalle-row div:nth-child(4), .detalle-row div:nth-child(5), .detalle-row div:nth-child(6), .detalle-row div:nth-child(7){
+    width: 70px;
+}
+
+.detalle-number{
+    text-align: right;
+} 
+
+#packing-detalle-header{
+    display: flex;    
+    justify-content: space-between;
+    flex-wrap: nowrap;
+    align-items: center;
+    margin-bottom: 0.25rem;
+}
+
+.packing-prod-status{
+    display: flex;
+    align-items: center;
+    /* padding: 0 0.5%; */
+}
+
+.semaforo {
+    height: 20px;
+    width: 20px;
+    /* border: 1px solid darkgray; */
+    border: 0px;
+    border-radius: 50%;
+    display: inline-block;
+}
+
+.semaforo-blanco {
+    border: 2px solid darkgray;
+    background-color: rgb(255, 255, 255);
+}
+
+.semaforo-verde {
+    background-color: rgb(9, 200, 57);
+}
+
+.semaforo-rojo {
+    background-color: rgb(205, 13, 13);
+}
+
+.semaforo-amarillo {
+    background-color: rgb(255, 200, 0);
+}

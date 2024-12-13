@@ -1,0 +1,78 @@
+/* Contiene instrucciones generales que aplican a casi todos los html
+   exceptuando aquellos que no requieran el footer */
+* {
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+ 	-webkit-box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	font-family: Helvetica, Arial,"Rockwell", sans-serif;
+    text-rendering: optimizelegibility;	
+    scroll-behavior: smooth;
+}
+
+html, body {
+    height: 100% !important;
+}
+
+body{
+    display:flex !important;
+    flex-direction: column !important;
+    justify-content: space-between !important;
+    background: #ffffff;
+}
+
+main {
+    flex-grow: 2 !important;
+    padding:0 2%;
+}
+
+footer {
+    background-color: #474747;
+    height: 6%;
+    max-height: 60px;
+    min-height: 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 1%;
+
+}
+footer i{
+    color: #ffffff;
+    font-size: 2rem;
+}
+
+
+#spinner:not([hidden]) {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 9999;
+  }
+  
+  #spinner::after {
+    content: "";
+    width: 80px;
+    height: 80px;
+    border: 6px solid #f3f3f3;
+    border-top: 8px solid #1B6404;
+    border-radius: 100%;
+    will-change: transform;
+    animation: spin 1s infinite linear
+  }
+  
+  @keyframes spin {
+    from {
+      transform: rotate(0deg);
+    }
+    to {
+      transform: rotate(360deg);
+    }
+  }
+  

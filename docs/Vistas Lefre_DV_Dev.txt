@@ -1,0 +1,49 @@
+-- v_cuentas_x_cobrar
+SELECT        codigo_cxc, documento_cxc, SUM(debe_cxc) AS monto_fac, SUM(haber_cxc) AS pagado_fac, SUM(debe_cxc - haber_cxc) AS saldo_fac
+FROM            dbo.TbCuentasCob
+GROUP BY codigo_cxc, documento_cxc
+HAVING        (SUM(debe_cxc - haber_cxc) >= 0.01)
+
+-- v_facturas_pagos
+SELECT        codigo_cxc, documento_cxc, SUM(debe_cxc) AS monto_fac, SUM(haber_cxc) AS pagado_fac, SUM(debe_cxc - haber_cxc) AS saldo_fac
+FROM            dbo.TbCuentasCob
+GROUP BY codigo_cxc, documento_cxc
+
+--v_pedidos_reservados
+SELECT        numero_ped
+FROM            dbo.TbPedidos1
+WHERE        (status_ped IN ('', 'ASIGNADO', 'PENDIENTE', 'RETENIDO'))
+
+--v_productos_reservados
+SELECT        producto_ped, SUM(cantidad_ped) AS cant_reservado
+FROM            dbo.TbPedidos2 AS a
+WHERE        EXISTS
+                             (SELECT        numero_ped
+                               FROM            dbo.v_pedidos_reservados AS z
+                               WHERE        (numero_ped = a.numero_ped))
+GROUP BY producto_ped
+
+
+-- v_tecnoventas_productos
+SELECT        a.codigo_pro, a.nombre_pro, a.referencia_pro, a.descripcion_pro, a.descompra_pro, a.unidad_pro, a.grupo_pro, a.tipo_pro, a.precio1_pro, a.precio2_pro, a.precio3_pro, a.precio4_pro, a.precio5_pro, a.porc1_pro, a.porc2_pro, 
+                         a.porc3_pro, a.porc4_pro, a.porc5_pro, a.inactivo_pro, a.minimo_pro, a.maximo_pro, a.ubicacion_pro, a.costo_pro, a.dolar_pro, a.dolarfob_pro, a.fechacosto_pro, a.promedio_pro, a.costocierre_pro, a.inventariofinal_pro, 
+                         a.fechacierre_pro, a.ctaingreso_pro, a.ctainventario_pro, a.ctagasto_pro, a.comision_pro, a.excento_pro, a.fechaux_pro, a.imagen_pro, a.imagenx_pro, a.imageny_pro, a.peso_pro, a.codigobarra_pro, a.EMPAQUE_PRO, 
+                         a.VOLUMEN_PRO, a.FACTPESO_PRO, a.DEPOSITO1_PRO, a.DEPOSITO2_PRO, a.DEPOSITO3_PRO, a.DEPOSITO3_PRO, a.DEPOSITO4_PRO, a.DEPOSITO5_PRO, a.MONEDAFOB_PRO, a.MONEDAFINAL_PRO, a.NOTA_PRO, a.FACMETRO_PRO, 
+                         a.REF1_PRO, a.REF2_PRO, a.REF3_PRO, a.REF4_PRO, a.REF5_PRO, a.REF6_PRO, a.REF7_PRO, a.REF8_PRO, a.REF9_PRO, a.REF10_PRO, a.REF11_PRO, a.REF12_PRO, a.VAL1_PRO, a.VAL2_PRO, a.VAL3_PRO, 
+                         a.VAL4_PRO, a.VAL5_PRO, a.VAL6_PRO, a.VAL7_PRO, a.VAL8_PRO, a.VAL9_PRO, a.VAL10_PRO, a.VAL11_PRO, a.VAL12_PRO, a.CTACOSTO_PRO, a.PROMEDIOFINAL_PRO, a.CODIGOIVA_PRO, a.SERVICIO_PRO, 
+                         a.COSTOANTERIOR_PRO, a.FECHACIEANT_PRO, a.PROMEDIOCIEANT_PRO, a.COSTOCIEANT_PRO, a.EXISTENCIACIEANT_PRO, a.IMAGEN2_PRO, a.IMAGEN3_PRO, a.IMAGEN4_PRO, a.IMAGEN5_PRO, a.WEB_PRO, 
+                         a.DOLAROFICIAL_PRO, a.ORIGEN_PRO, a.CODARANCEL_PRO, a.LEADTIME_PRO, a.PROMOCION_PRO, a.PORCTA3ROS_PRO, a.CANTMAXIMA_PRO, a.USASERIAL_PRO, a.GARANTIA_PRO, a.PORCOSTOVENTA_PRO, 
+                         a.COMPUESTO_PRO, a.MANEJALOTE_PRO, a.REQUIERECLAVE, a.PRECIODOLAR1_PRO, a.PRECIODOLAR2_PRO, a.PRECIODOLAR3_PRO, a.PRECIODOLAR4_PRO, a.PRECIODOLAR5_PRO, a.MARCA_PRO, a.LICOR_PRO, 
+                         a.USO_PRO, a.OBSERVACION_PRO, a.BLOQUEAFACTURA_PRO, a.BLOQUEARAPIDA_PRO, a.BultoOriginal_Pro, a.EmpaqueOriginal_Pro, c.CodMarca, c.DesMarca, c.CodProveedor, c.Observacion, d.CODIGO_IMP, 
+                         d.NOMBRE_IMP, d.TASA_IMP, d.TIPO_IMP, d.DEDUCIBLE_IMP, d.CUENTA_IMP, d.CONCEPTO_IMP, e.CODIGO_TIP, e.NOMBRE_TIP, e.INACTIVAWEB_TIP, e.INACTIVAMOVIL_TIP, e.INACTIVATOTAL_TIP, f.CODIGO_GRU, 
+                         f.NOMBRE_GRU, f.PORVENTA_GRU, f.PORCOB1_GRU, f.DIACOB1_GRU, f.PORCOB2_GRU, f.DIACOB2_GRU, f.PORCOB3_GRU, f.DIACOB3_GRU, f.PORCOB4_GRU, f.DIACOB4_GRU, f.PORCOB5_GRU, f.DIACOB5_GRU, 
+                         f.CENTROC_GRU, f.CARGODIRECTO_GRU, f.INACTIVAWEB_GRU, f.INACTIVAMOVIL_GRU, f.INACTIVATOTAL_GRU, f.CANTMAXIMA_GRU, ISNULL(c.DesMarca, a.MARCA_PRO) AS marca, ISNULL(b.cant_reservado, 0) 
+                         AS cant_reservado, a.existencia_pro - ISNULL(b.cant_reservado, 0) AS existencia_pro
+FROM            dbo.TbProductos AS a LEFT OUTER JOIN
+                         dbo.v_productos_reservados AS b ON b.producto_ped = a.codigo_pro LEFT OUTER JOIN
+                         dbo.TbMarcas AS c ON c.CodMarca = a.MARCA_PRO LEFT OUTER JOIN
+                         dbo.TbImpuestos AS d ON d.CODIGO_IMP = a.CODIGOIVA_PRO LEFT OUTER JOIN
+                         dbo.TbTipos AS e ON e.CODIGO_TIP = a.tipo_pro LEFT OUTER JOIN
+                         dbo.TbGrupos AS f ON a.grupo_pro = f.CODIGO_GRU
+WHERE        (a.inactivo_pro = 0) AND (e.INACTIVAMOVIL_TIP = 1) OR
+                         (a.inactivo_pro = 0) AND (f.INACTIVAMOVIL_GRU = 1)

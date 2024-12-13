@@ -1,0 +1,378 @@
+@font-face {
+  font-family: 'icomoon';
+  src:  url('fonts/icomoon.eot?q6jz1l');
+  src:  url('fonts/icomoon.eot?q6jz1l#iefix') format('embedded-opentype'),
+    url('fonts/icomoon.ttf?q6jz1l') format('truetype'),
+    url('fonts/icomoon.woff?q6jz1l') format('woff'),
+    url('fonts/icomoon.svg?q6jz1l#icomoon') format('svg');
+  font-weight: normal;
+  font-style: normal;
+  font-display: block;
+}
+
+i {
+  /* use !important to prevent issues with browser extensions that change fonts */
+  font-family: 'icomoon' !important;
+  speak: never;
+  font-style: normal;
+  font-weight: normal;
+  font-variant: normal;
+  text-transform: none;
+  line-height: 1;
+
+  /* Better Font Rendering =========== */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.icon-ver-detalle:before {
+  content: "\e945";
+}
+.icon-filter:before {
+  content: "\e93b";
+}
+.icon-search2:before {
+  content: "\e936";
+}
+.icon-arrow-left-circle:before {
+  content: "\e900";
+}
+.icon-barcode-1:before {
+  content: "\e901";
+}
+.icon-barcode-2:before {
+  content: "\e903";
+}
+.icon-barcode-print:before {
+  content: "\e904";
+}
+.icon-bill-7:before {
+  content: "\e905";
+}
+.icon-cog:before {
+  content: "\e906";
+}
+.icon-search1:before {
+  content: "\e916";
+}
+.icon-transport-13:before {
+  content: "\e918";
+}
+.icon-transport-14:before {
+  content: "\e919";
+}
+.icon-trolley-21:before {
+  content: "\e91a";
+}
+.icon-unpack-1:before {
+  content: "\e91b";
+}
+.icon-home3:before {
+  content: "\e902";
+}
+.icon-file-text:before {
+  content: "\e922";
+}
+.icon-barcode:before {
+  content: "\e937";
+}
+.icon-qrcode:before {
+  content: "\e938";
+}
+.icon-printer:before {
+  content: "\e954";
+}
+.icon-user-plus:before {
+  content: "\e973";
+}
+.icon-user-minus:before {
+  content: "\e974";
+}
+.icon-hour-glass:before {
+  content: "\e979";
+}
+.icon-search:before {
+  content: "\e986";
+}
+.icon-lock:before {
+  content: "\e98f";
+}
+.icon-unlocked:before {
+  content: "\e990";
+}
+.icon-equalizer2:before {
+  content: "\e993";
+}
+.icon-bin:before {
+  content: "\e9ac";
+}
+.icon-menu:before {
+  content: "\e9bd";
+}
+.icon-eye:before {
+  content: "\e9ce";
+}
+.icon-star-empty:before {
+  content: "\e9d7";
+}
+.icon-star-full:before {
+  content: "\e9d9";
+}
+.icon-warning:before {
+  content: "\ea07";
+}
+.icon-notification:before {
+  content: "\ea08";
+}
+.icon-plus:before {
+  content: "\ea0a";
+}
+.icon-minus:before {
+  content: "\ea0b";
+}
+.icon-info:before {
+  content: "\ea0c";
+}
+.icon-cancel-circle:before {
+  content: "\ea0d";
+}
+.icon-cross:before {
+  content: "\ea0f";
+}
+.icon-checkmark:before {
+  content: "\ea10";
+}
+.icon-exit:before {
+  content: "\ea14";
+}
+.icon-arrow-up:before {
+  content: "\ea32";
+}
+.icon-arrow-right:before {
+  content: "\ea34";
+}
+.icon-arrow-down:before {
+  content: "\ea36";
+}
+.icon-arrow-left:before {
+  content: "\ea38";
+}
+.icon-circle-up:before {
+  content: "\ea41";
+}
+.icon-circle-right:before {
+  content: "\ea42";
+}
+.icon-circle-down:before {
+  content: "\ea43";
+}
+.icon-circle-left:before {
+  content: "\ea44";
+}
+.icon-undo:before {
+  content: "\e965";
+}
+.icon-redo:before {
+  content: "\e966";
+}
+.icon-eye-blocked:before {
+  content: "\e9d1";
+}
+.icon-download3:before {
+  content: "\e9c7";
+}
+.icon-search-file-svgrepo-com:before {
+  content: "\e946";
+}
+.icon-save-10:before {
+  content: "\e942";
+}
+.icon-save-9:before {
+  content: "\e943";
+}
+.icon-save-7:before {
+  content: "\e944";
+}
+.icon-worker-loading-boxes:before {
+  content: "\e93c";
+}
+.icon-trolley-1:before {
+  content: "\e93d";
+}
+.icon-trolley-2:before {
+  content: "\e93e";
+}
+.icon-worker-loading-boxes-2:before {
+  content: "\e93f";
+}
+.icon-trolley-push-cart-with-boxes:before {
+  content: "\e940";
+}
+.icon-boxes-1:before {
+  content: "\e941";
+}
+.icon-minus-circle:before {
+  content: "\e939";
+}
+.icon-plus-circle:before {
+  content: "\e93a";
+}
+.icon-lefre-logo05 .path1:before {
+  content: "\e930";
+  color: rgb(8, 103, 54);
+}
+.icon-lefre-logo05 .path2:before {
+  content: "\e931";
+  margin-left: -3.27734375em;
+  color: rgb(8, 103, 54);
+}
+.icon-lefre-logo05 .path3:before {
+  content: "\e932";
+  margin-left: -3.27734375em;
+  color: rgb(8, 103, 54);
+}
+.icon-lefre-logo05 .path4:before {
+  content: "\e933";
+  margin-left: -3.27734375em;
+  color: rgb(46, 46, 45);
+}
+.icon-lefre-logo05 .path5:before {
+  content: "\e934";
+  margin-left: -3.27734375em;
+  color: rgb(46, 46, 45);
+}
+.icon-lefre-logo05 .path6:before {
+  content: "\e935";
+  margin-left: -3.27734375em;
+  color: rgb(46, 46, 45);
+}
+.icon-lefre-logo01 .path1:before {
+  content: "\e91f";
+  color: rgb(46, 46, 45);
+}
+.icon-lefre-logo01 .path2:before {
+  content: "\e920";
+  margin-left: -3.2763671875em;
+  color: rgb(46, 46, 45);
+}
+.icon-lefre-logo01 .path3:before {
+  content: "\e921";
+  margin-left: -3.2763671875em;
+  color: rgb(46, 46, 45);
+}
+.icon-lefre-logo01 .path4:before {
+  content: "\e923";
+  margin-left: -3.2763671875em;
+  color: rgb(8, 103, 54);
+}
+.icon-lefre-logo01 .path5:before {
+  content: "\e924";
+  margin-left: -3.2763671875em;
+  color: rgb(46, 46, 45);
+}
+.icon-lefre-logo01 .path6:before {
+  content: "\e925";
+  margin-left: -3.2763671875em;
+  color: rgb(8, 103, 54);
+}
+.icon-lefre-logo01 .path7:before {
+  content: "\e926";
+  margin-left: -3.2763671875em;
+  color: rgb(46, 46, 45);
+}
+.icon-lefre-logo01 .path8:before {
+  content: "\e927";
+  margin-left: -3.2763671875em;
+  color: rgb(8, 103, 54);
+}
+.icon-lefre-logo01 .path9:before {
+  content: "\e928";
+  margin-left: -3.2763671875em;
+  color: rgb(8, 103, 54);
+}
+.icon-lefre-logo01 .path10:before {
+  content: "\e929";
+  margin-left: -3.2763671875em;
+  color: rgb(8, 103, 54);
+}
+.icon-lefre-logo01 .path11:before {
+  content: "\e92a";
+  margin-left: -3.2763671875em;
+  color: rgb(46, 46, 45);
+}
+.icon-lefre-logo01 .path12:before {
+  content: "\e92b";
+  margin-left: -3.2763671875em;
+  color: rgb(46, 46, 45);
+}
+.icon-lefre-logo01 .path13:before {
+  content: "\e92c";
+  margin-left: -3.2763671875em;
+  color: rgb(46, 46, 45);
+}
+.icon-lefre-logo02:before {
+  content: "\e92d";
+}
+.icon-lefre-logo03:before {
+  content: "\e92e";
+}
+.icon-lefre-logo04:before {
+  content: "\e92f";
+}
+.icon-edit-1:before {
+  content: "\e907";
+}
+.icon-edit-12:before {
+  content: "\e908";
+}
+.icon-noun-open-bill:before {
+  content: "\e909";
+}
+.icon-order:before {
+  content: "\e90a";
+}
+.icon-order-2:before {
+  content: "\e90b";
+}
+.icon-order-39:before {
+  content: "\e90c";
+}
+.icon-order-delete-3:before {
+  content: "\e90d";
+}
+.icon-pack-1:before {
+  content: "\e90e";
+}
+.icon-packing-1:before {
+  content: "\e90f";
+}
+.icon-plus-circle1:before {
+  content: "\e910";
+}
+.icon-plus-circle-fill:before {
+  content: "\e911";
+}
+.icon-printer-5:before {
+  content: "\e912";
+}
+.icon-qrcode1:before {
+  content: "\e913";
+}
+.icon-remove:before {
+  content: "\e914";
+}
+.icon-save-3:before {
+  content: "\e915";
+}
+.icon-storehouse-1:before {
+  content: "\e917";
+}
+.icon-unpack-18:before {
+  content: "\e91c";
+}
+.icon-user-8:before {
+  content: "\e91d";
+}
+.icon-user-10:before {
+  content: "\e91e";
+}

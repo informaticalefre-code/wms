@@ -1,0 +1,27 @@
+:root {
+    --header-bg-color: dodgerblue;
+    /*cornflowerblue dodgerblue cadetblue mediumslateblue*/
+}
+
+body {
+    background: #ffffff;
+}
+
+#pedidos-lista-picking {
+    display:flex;
+    flex-direction:row;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+}
+
+
+#div_boton_mas {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+
+#lista_carga_mas {
+    width: 80%;
+    max-width: 300px;
+}

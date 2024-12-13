@@ -1,0 +1,226 @@
+body {
+    background: #ffffff;
+}
+
+body:not(.modal-open){
+    /* Esta linea si se quita se observa un comportamiento anormal cuando aparecen
+    las ventanas modal */
+    padding-right: 0px !important;
+}
+
+#main_screen {
+    padding: 0 1%;
+}
+
+#picking-header {
+    border: 1px solid lightgray;
+    font-size: 0.90rem;
+}
+
+#paletas-lista-title{
+    display: flex;
+    align-items: center;
+    height: 50px;
+    gap: 15px;
+}
+
+#pick_idpicking{
+    /* display: inline-block;*/
+    padding: 0.35em 0.65em;
+    font-size: 100%;
+    font-weight: 700;
+    line-height: 1;
+    color: #fff;
+    background-color: #198754;
+    text-align: center;
+    /* white-space: nowrap;
+    vertical-align: baseline; */
+    border-radius: 0.25rem;
+    width: clamp(80px, 6rem, 100px);
+    border:none;
+}
+
+.picking-prod {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    align-items: stretch;
+    width: 100%;
+    font-size: 0.90rem;
+    border: 1px solid lightgray;
+    box-sizing: border-box;
+    min-height: 90px;
+}
+
+.picking-prod-status {
+    display: flex;
+    align-items: center;
+    border-right: 1px solid lightgray;
+    padding: 0 0.5%;
+}
+
+
+.picking-prod-foto {
+    display: none;
+}
+
+
+.picking-prod-requerido {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    text-align: center;
+    /* border-right: 1px solid lightgray;*/
+    border-left: 1px solid lightgray;
+    padding: 0 0.5%;
+}
+
+.picking-prod-requerido label{
+    align-self: center;
+}    
+
+.picking-prod-requerido input{
+    font-size: 1.5rem;
+    width: 60px;
+    text-align: center;
+    align-self: center;
+    border:none; 
+}    
+
+.picking-prod-detalle {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    flex-grow:1;
+    padding: 0.5%;
+    padding-left: 2%;
+}
+
+.picking-prod-detalle-ubica{
+    display: flex;
+    justify-content: space-between;
+}
+
+
+.picking-detalle-header{
+    display: flex;
+    justify-content: space-between;
+}
+
+.semaforo {
+    height: 20px;
+    width: 20px;
+    /* border: 1px solid darkgray; */
+    border: 0px;
+    border-radius: 50%;
+    display: inline-block;
+}
+
+/* Sin trabajar no seleccionado */
+.semaforo-blanco {
+    border: 2px solid darkgray;
+    background-color: rgb(255, 255, 255);
+}
+
+/* Se cumple lo requerido 100% */
+.semaforo-verde {
+    background-color: rgb(9, 200, 57);
+}
+
+/* No se cumple totalmente con lo requerido*/
+.semaforo-rojo {
+    background-color: rgb(205, 13, 13);
+}
+
+/* Se cumple lo requerido parcialmente */
+.semaforo-amarillo {
+    background-color: rgb(255, 200, 0);
+}
+
+/* RELACIONADO CON EL CAMPO DE CANTIDAD EN LA PANTALLA MODAL */
+.cant_requerido{
+    -webkit-appearance: textfield;
+    -moz-appearance: textfield;
+    appearance: textfield;
+    text-align: center;
+    font-size: 1.5rem;
+    width: 100px;
+}
+
+.number-input {
+    border: 2px solid #ddd;
+    display: inline-flex;
+    -webkit-box-shadow: 0px 5px 15px 4px rgba(42,42,42,0.39);
+    box-shadow: 0px 5px 15px 4px rgba(42,42,42,0.39);
+}
+
+.number-input,
+.number-input * {
+    box-sizing: border-box;
+}
+
+.number-input button {
+    outline:none;
+    /* -webkit-appearance: none; */
+    background-color: transparent;
+    border: none;
+    align-items: center;
+    justify-content: center;
+    width: 3rem;
+    height: 3rem;
+    cursor: pointer;
+    margin: 0;
+    position: relative;
+    font-size: 2rem;
+    color:darkgray;
+}
+/* RELACIONADO CON EL CAMPO DE CANTIDAD EN LA PANTALLA MODAL */
+
+
+/* Pantalla Modal */
+#Picking-Producto-Modal{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+
+label {
+    color: #616161;
+}
+
+#PickingModalBody-Info {
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+    flex-wrap: wrap;
+
+}
+
+#PickingModalBody-Info input {
+    border: none;
+}
+
+#PickingModalBody-Info input:disabled {
+    color:  #474747;
+}
+
+
+
+
+@media screen and (min-width: 500px) {
+    .picking-prod{
+        font-size: 1rem;
+    }
+
+    .picking-prod-foto {
+        display: flex;
+        align-items: center;
+        width: 60px;
+        padding: 0 0.5%;
+    }
+
+    .picking-prod-requerido {
+        padding: 0 1%;
+    }   
+}

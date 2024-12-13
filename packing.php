@@ -1,0 +1,838 @@
+<?php
+    require 'user-auth-frontend.php';
+    require 'config/header_head.html';
+?>
+    <meta http-equiv="Cache-Control" content="no-store">
+    <!-- Personales      ----------------------------------------------->
+    <link rel="stylesheet" type="text/css" href="css/packing.css">
+</head>
+<body>
+<?php
+    require 'config/barra_save.html';
+?>
+    <main id="main_screen">
+        <div hidden id="spinner"></div>
+        <div id="panel-left">
+            <div id="packing-header" class="mb-2" style="max-width:1200px">
+                <form method="post" id="packing-header-form">
+                    <section>
+                        <div class="d-flex flex-row justify-content-between">
+                            <span id="packing-idpedido" style="font-size:100%;" class="badge bg-primary"></span>
+                            <input type="text" name="pack_idpacking" id="pack_idpacking" autocomplete="off" readonly>
+                            <p id="packing-fecha" class="mb-0"></p>
+                        </div>
+                        <p id="packing-cliente" class="mb-0"></p>
+                        <p id="packing-vendedor" class="mb-0"></p>
+                        <div style="display:flex;">Preparador:&nbsp<p id="packing-preparador" class="mb-0"></p></div>
+                        <div style="display:flex;">Chequeador:&nbsp<p id="packing-chequeador" class="mb-0"></p></div>
+                    </section>
+                    <div class="form-group">
+                        <label for="pack_observacion" style="font-size:inherit;">Observación</label>
+                        <textarea class="form-control p-1" name="pack_observacion" id="pack_observacion" maxlength="100" style="font-size:inherit; padding:1%;" autocomplete="off"></textarea>
+                    </div>
+                </form>
+            </div>
+            <div id="packing-productos" class="packing-lista-productos" style="max-width:1200px"></div>
+        </div>            
+        <aside id="panel-right">
+            <div id="control-boxes">
+                <button class="btn btn-success" style="height:45px;" onclick="add_box()">Nueva&nbsp<i class="icon-plus"></i></button>
+                <button class="btn btn-secondary" style="height:45px;" onclick="print_all()">Etiquetas&nbsp<i class="icon-barcode-print"></i></button>
+                <button class="btn btn-info" style="height:45px;" onclick="auto_box()">Auto&nbsp<i class="icon-order-39"></i></button>
+                <button class="btn btn-secondary" style="height:45px;" onclick="packing_bultos()">Bultos&nbsp<i class="icon-boxes-1"></i></button>
+            </div>
+            <div id="boxes">
+            </div>
+        </aside>
+    </main>
+
+    <div class="modal fade" id="PackingModal" tabindex="-1" aria-labelledby="PackingModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg modal-dialog-scrollable">
+            <div class="modal-content">
+                <!-- <form method="post" id="packing-producto-form" onsubmit="submit_pack_producto(event)"> -->
+                <form method="post" id="packing-producto-form" autocomplete="off">
+                    <div class="modal-header py-2">
+                        <h5 class="modal-title" id="PackingModalLabel">SKU&nbsp</h5>
+                        <input id="info-idproducto" type="text" name="info-idproducto" value="error..." class="border-0 col-6" style="font-size:1.25rem;" readonly autocomplete="off">
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body py-2" id="PackingModalBody">
+                        <div id="Packing-Producto-Modal">
+                            <div id="info-nombre" style="width:100%;border-bottom: 1px solid darkgray"></div>
+                            <div id="PackingModalBody-Info" class="mb-2">
+                                <div>
+                                    <label for="unidad">Unidad:</label>
+                                    <input id="info-unidad" class="packingModal-info-input" type="text" name="unidad" style="width:5rem;" readonly autocomplete="off">
+                                </div>
+                                <div>
+                                    <label for="referencia">Ref:</label>
+                                    <input id="info-referencia" class="packingModal-info-input" type="text" name="referencia" style="width:10rem;" readonly autocomplete="off">
+                                </div>
+                                <div>
+                                    <label for="bulto">Bulto Orig.:</label>
+                                    <input type="text" id="info-bulto" class="pickingModal-info-input" type="text" name="bulto" style="width:3rem;" readonly autocomplete="off">
+                                </div>                                
+                                <div>
+                                    <label for="requerido">Anclado:</label>
+                                    <input id="info-requerido" class="packingModal-info-input" type="text" name="requerido" style="width:3rem;" readonly autocomplete="off">
+                                </div>
+                                <div>
+                                    <label for="disponible">Por empacar:</label>
+                                    <input id="info-disponible" class="pickingModal-info-input" type="text" name="disponible" style="width:3rem;" readonly autocomplete="off">
+                                </div>
+                                <div>
+                                    <label for="idbulto">ID.Bulto:</label>
+                                    <input id="info-idbulto" class="packingModal-info-input" type="text" name="idbulto" style="width:3rem;" readonly autocomplete="off">
+                                </div>
+                            </div>
+                            <div class="number-input mt-1 mb-2">
+                                <button type="button" onclick="document.getElementById('info-cantidad').stepDown()" class="minus">-</button>
+                                <input  id="info-cantidad" class="cant_requerido" name="cantidad" inputmode="numeric" type="number" min="0"  autocomplete="off">
+                                <button type="button" onclick="document.getElementById('info-cantidad').stepUp()" class="plus">+</button>
+                            </div>
+                            <div id="PackingModalBody-Foto"></div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="submit" form="packing-producto-form" class="btn btn-primary" onclick="submit_pack_producto(event)">Guardar</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="BoxModal" tabindex="-1">
+        <div class="modal-dialog modal-dialog-scrollable modal-xl">
+            <div class="modal-content">
+                <div class="modal-header py-2">
+                    <h5 class="modal-title" id="BoxModalLabel">Bulto&nbsp</h5>
+                    <input id="numero-bulto" type="text" name="numero-bulto" value="error..." class="border-0 col-6" style="font-size:1.25rem;" readonly autocomplete="off">
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                    <div class="modal-body py-2" id="BoxModalBody">
+                        <form method="post" id="Box-producto-form" onsubmit="submit_close_bulto(event)">
+                            <input id="bulto-idbulto" type="hidden" name="bulto-idbulto" value="error..." class="border-0 col-6" style="font-size:1.25rem;" readonly autocomplete="off">
+                            <div id="Box-Producto-Modal">
+                                <div id="BoxModalBody-Info" class="mb-2">
+                                    <div class="modal-info-line">
+                                        <label for="bulto-peso">Peso:</label>
+                                        <input id="bulto-peso" class="packingModal-info-input form-control" type="text" inputmode="numeric" pattern="[0-9]+([\.][0-9]+)" maxlength="7" name="bulto-peso" autocomplete="off">
+                                    </div>
+                                    <div class="modal-info-line">
+                                        <label for="bulto-unidad">Unidad:</label>
+                                        <select class="form-select" id="bulto-unidad" name="bulto-unidad" aria-label="Kilos o Gramos">
+                                            <option selected value="Kg">Kg</option>
+                                            <option value="gr">gr</option>
+                                        </select>
+                                    </div>
+                                    <div class="modal-info-line">
+                                        <label for="bulto-status">Estatus:</label>
+                                        <input id="bulto-status" class="packingModal-info-input form-control" type="text" name="bulto-status" disabled autocomplete="off">
+                                    </div>
+                                </div>
+                            </div>
+                            <div id="BoxModalBody-List" class="mb-2">
+                            </div>
+                        </form>                        
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" id="bulto-btn-del" class="btn  btn-outline-secondary" onclick="box_delete()">Eliminar Bulto&nbsp<i class="icon-remove"></i></button>
+                        <button type="button" id="bulto-btn-print" class="btn btn-secondary" onclick="print_box_modal()" title="Imprime etiqueta">Etiqueta&nbsp<i class="icon-noun-open-bill"></i></button>
+                        <button type="submit" id="bulto-btn-cerrar" form="Box-producto-form" class="btn btn-primary">Cerrar Bulto</button>
+                    </div>
+            </div>
+        </div>
+    </div>
+<?php
+    /* Pendiente tú (otro programador aparte de mí). Este require es solicitado
+       hasta el momento en pedidos_lista.php y packing.php */
+    require_once 'bultos_modal.html';
+    require 'config/footer.html';
+?>
+
+<!-- Contiene las funciones JS solo para uso de esta página-->
+<script type="text/javascript" src="js/packing.js"></script>
+<!-- Browser Print  ------------------------------------>
+<script type="text/javascript" src="js/BrowserPrint-2.0.0.75.min.js"></script>
+
+
+<script type = "text/JavaScript">
+    const spinner = document.getElementById("spinner");
+    var myModalEl = document.getElementById('PackingModal');
+    /* Este es un listener que se ejecuta luego que la ventana Modal Packing Modal
+       se muestra en pantalla, y luego que se muestra podemos asignar el foco al
+       elemento que queramos */
+    myModalEl.addEventListener('shown.bs.modal', function (event) {
+        document.getElementById("info-cantidad").focus();
+    });
+
+    /************* RELACIONADO CON LA LECTURA DEL CODIGO DE BARRA ***********************/
+    var barcode = '';  
+    var interval;
+    /************* FIN RELACIONADO CON LA LECTURA DEL CODIGO DE BARRA ***********************/
+    /* Solo puede existir 1 caja abierta y todo se inserta en esa caja */
+    var global_packing_cajas = 0;  // Variable global que contiene el número de bultos
+    var global_box_open      = 0 ; // Indica el número de la caja abierta actualmente 
+    var global_packing_productos = [];  // Array que contiene los productos a empacar
+    var global_selected_device = null; // Array de objetos con las impresoras Zebras del Equipo. Se llena en Setup_Bp()
+    var global_packing_printer = '';
+    
+    get_label_printer();
+    const search_parametro = new URLSearchParams(window.location.search);
+    const idpacking = search_parametro.get('idpacking');
+    document.getElementById("pack_idpacking").value = idpacking;
+    carga_tarea_packing(idpacking);
+    //setup_bp() // Inicializa el Zebra Browser Print;
+    delete search_parametro, idpacking;
+
+  
+    /* Función que direcciona cuando se pulsa el botón de atrás (no confundir con el del navegador)*/
+    function barra_back_btn(){
+        window.location.replace(location.origin + "/wms/packing_pistas.php");
+    }
+
+    /**************************************************************************
+    * Abre la ventana modal con los datos referenciales del producto 
+    * que se procede anclar al pedido
+    ***************************************************************************/
+    function carga_tarea_packing(idpacking){
+        spinner.removeAttribute('hidden');
+        // Tomamos el parametro del ID Picking a cargar
+        // Hacemos un fetch api mandando el Nro de la Tarea de Picking.
+        let url = new URL(location.origin + '/wms/api/ap_packing.php');
+        url.searchParams.append('idpacking', idpacking);
+        url.searchParams.append('accion', 'packing-tarea');
+
+        fetch(url,{method:'GET',headers: {'Content-type':'application/json; charset=UTF-8'}})
+        .then((response) => response.json())
+        .then((responseJson) => {
+            spinner.setAttribute('hidden', '');
+            if (responseJson.response == 'success'){
+                document.getElementById("pack_idpacking").value         = responseJson.idpacking;
+                document.getElementById("packing-idpedido").innerText   = responseJson.idpedido;
+                document.getElementById("packing-fecha").innerText      = responseJson.fecha;
+                document.getElementById("packing-cliente").innerText    = responseJson.cliente;
+                document.getElementById("packing-vendedor").innerText   = responseJson.vendedor;
+                // document.getElementById("packing-chequeador").innerText = responseJson.chequeador;
+                document.getElementById("packing-productos").innerHTML  = responseJson.html_lista;
+                carga_preparador(responseJson.idpicking);
+                global_packing_cajas = responseJson.bultos;
+                global_packing_productos = responseJson.packing_productos;
+                global_box_open = responseJson.bulto_open;
+                if (global_packing_cajas == 0) {
+                    add_box(idpacking);
+                }else{
+                    document.getElementById("boxes").innerHTML = responseJson.html_bultos;
+                }
+            }else{
+                document.getElementById("packing-productos").innerHTML = responseJson.html_lista;
+            }
+            delete search_parametro, idpacking, url;
+        }).catch((err) => {
+            spinner.setAttribute('hidden', '');
+            Swal.fire({icon: 'error', title:'No se puede cargar Tarea de Packing', text:err.message});
+        });
+        delete url;
+    }
+
+
+    /*************************************************************************************
+    * Función que abre la forma modal para colocar la cantidad que existe de un producto *
+    * Se activa al darle clic al producto en la lista de Productos a Empacar
+    **************************************************************************************/
+    function pack_producto(idproducto){
+        document.getElementById("packing-producto-form").reset();
+        // const anclado  = Number(document.getElementById("packing-"+idproducto).querySelector('#pacd_requerido').value);
+        const anclado  = +document.getElementById("packing-"+idproducto).querySelector('#pacd_requerido').value;
+        let embalado   = +document.getElementById("packing-"+idproducto).querySelector('#pacd_cantidad').value;
+        let disponible = 0;
+        disponible = anclado - embalado;
+        document.getElementById("info-nombre").textContent = document.getElementById("packing-nombre-pro-"+idproducto).textContent;
+        document.getElementById("info-idproducto").value   = idproducto;
+        document.getElementById("info-unidad").value       = document.getElementById("packing-"+idproducto).querySelector('#packing-unidad').textContent;
+        document.getElementById("info-referencia").value   = document.getElementById("packing-"+idproducto).querySelector('#referencia_pro').value;
+        document.getElementById("info-bulto").value        = document.getElementById("packing-"+idproducto).querySelector('#packing-bultoorig').textContent;
+        document.getElementById("info-requerido").value    = anclado;
+        document.getElementById("info-disponible").value   = disponible;
+        document.getElementById("info-idbulto").value      = global_box_open;
+
+        let foto      = document.getElementById("foto-"+idproducto).innerHTML;
+        let ModalFoto = document.getElementById("PackingModalBody-Foto");
+        // foto = foto.replace("fotos-100","fotos-300");
+        // foto = foto.replace("-lefre-th.","-lefre-sm.");
+        ModalFoto.innerHTML = foto;
+        let myModal = new bootstrap.Modal(document.getElementById("PackingModal"),{});
+
+        spinner.setAttribute('hidden', '');
+        delete foto, ModalFoto;
+        myModal.show();
+        delete anclado, embalado, disponible, myModal;
+    }
+
+
+    /*************************************************************************************
+    * Función que abre la forma modal para ver los productos asociados a una caja
+    **************************************************************************************/
+    function pack_box(bulto){
+        spinner.removeAttribute('hidden');
+        document.getElementById("numero-bulto").value = bulto; // Este es solo titulo...
+        document.getElementById("bulto-idbulto").value = bulto; // Este es campo clave.
+        const search_parametro = new URLSearchParams(window.location.search);
+        const idpacking = search_parametro.get('idpacking');
+        // Hacemos un fetch api mandando el Nro de la Tarea de Picking.
+        let url = new URL(location.origin + '/wms/api/ap_packing.php');
+        url.searchParams.append('idpacking', idpacking);
+        url.searchParams.append('box',bulto);
+
+        fetch(url,{method:'GET',headers: {'Content-type':'application/json; charset=UTF-8'}})
+        .then((response) => response.json())
+        .then((responseJson) => {
+            spinner.setAttribute('hidden', '');
+            responseJson.response == 'success'
+            if (responseJson.response == 'success'){
+                document.getElementById("bulto-peso").value            = responseJson.peso;
+                document.getElementById("bulto-unidad").value          = responseJson.unidadpeso;
+                document.getElementById("bulto-status").value          = responseJson.status == 0  ? 'ABIERTO' : 'CERRADO';
+                document.getElementById("BoxModalBody-List").innerHTML = responseJson.html_prod;
+                /* Para facilitar la consulta (recuerde que los nombres están en SQL Server y los datos de Packing en MariaDB*/
+                insert_nombres_productos();
+                if (responseJson.status == 1){
+                    document.getElementById("bulto-btn-cerrar").disabled = true;
+                    document.getElementById("bulto-btn-del").disabled = true;
+                }else{
+                    document.getElementById("bulto-btn-cerrar").disabled = false;
+                    document.getElementById("bulto-btn-del").disabled = false;
+                }
+                let myModal = new bootstrap.Modal(document.getElementById("BoxModal"),{});
+                myModal.show();
+                delete myModal;
+            }else{
+                document.getElementById("packing-productos").innerHTML  = responseJson.html_prod;
+            }
+            delete search_parametro, idpacking, url;
+        }).catch((err) => {
+            spinner.setAttribute('hidden', '');
+            Swal.fire({icon:'error', title:'No se puede cargar datos de bulto.', text:err.message});
+        });
+        delete url;
+    };
+
+
+    /*************************************************************************************
+    *                              PACKING BULTOS
+    * Muestra los bultos y el contenido de cada uno en una ventana modal.
+    **************************************************************************************/
+    function packing_bultos(){
+        spinner.removeAttribute('hidden');
+        let idpedido = document.getElementById("packing-idpedido").innerText;
+        document.getElementById("ModalIdPedido").value   = idpedido;
+        document.getElementById("BultosTabla").innerHTML = "";
+        document.getElementById("BultosTabla").innerHTML = "";
+        let myModal = new bootstrap.Modal(document.getElementById("BultosModal"),{});
+        myModal.show();
+
+        let url = new URL(location.origin + '/wms/api/ap_packing.php');
+        url.searchParams.append('idpedido', idpedido);
+        url.searchParams.append('accion', 'packing-bultos');
+        fetch(url,{method:'GET',headers: {'Content-type':'application/json; charset=UTF-8'}})
+            .then((response) => response.json())
+            .then((responseJson) =>{
+                if (responseJson.response == 'success'){
+                    document.getElementById("BultosTabla").innerHTML = responseJson.html_bultos;
+                }else{
+                    document.getElementById("FacturaNota").innerHTML = responseJson.error_msj;
+                }
+                spinner.setAttribute('hidden','');
+        });
+        delete myModal, url;
+    }
+
+
+    /**************************************************************************
+    * SUBMIT para añadir productos a la caja activa
+    ***************************************************************************/
+    function submit_pack_producto(event){
+        event.preventDefault();
+        // Verificamos si hay una caja activa para insertar productos
+        if (global_box_open == 0){
+            Swal.fire({icon:'warning', title:'No hay ninguna caja abierta', text:'debe abrir o crear una nueva caja'});
+            return;
+        }
+
+        spinner.removeAttribute('hidden');
+        const idpacking   = document.getElementById("pack_idpacking").value;
+        const idproducto  = document.getElementById("info-idproducto").value;
+        const packing_obj = document.getElementById("packing-"+idproducto);
+        let embalado = +packing_obj.querySelector('#pacd_cantidad').value;
+        let formData = new FormData(document.getElementById('packing-producto-form'));
+        formData.append("accion","packing-productos-bultos");
+        formData.append("idpacking",idpacking);
+
+        fetch('api/ap_packing.php',{method:'POST',body:formData})
+        .then((response) => response.json())
+        .then((data) => {
+            spinner.setAttribute('hidden', '');
+            if(data.response == 'success'){
+                packing_obj.querySelector('#pacd_cantidad').value = embalado + data.cantidad;
+                packing_obj.querySelector('#semaforo').className  = data.semaforo;
+                if (data.embalaje == 'total'){
+                    packing_obj.style.display = "none";
+                }
+                const modal = bootstrap.Modal.getOrCreateInstance(myModalEl);
+                modal.hide();
+                Swal.fire({icon:'success',title: 'Datos Guardados',showConfirmButton: false,timer: 1500});
+                delete data, modal;
+            }else{
+                Swal.fire({icon: data.error_tpo,title: 'Datos No guardados',text: data.error_msj});
+            }
+            delete idpacking, idproducto, packing_obj;
+            delete embalado, formData;
+        }).catch((err) => {
+            spinner.setAttribute('hidden', '');
+            Swal.fire({icon:'error', title:'Error al guardar datos.', text:err.message});
+        });
+    }
+
+    
+    /**************************************************************************
+    * SUBMIT para cerrar Bultos
+    ***************************************************************************/
+    function submit_close_bulto(event){
+        event.preventDefault();
+        spinner.removeAttribute('hidden');
+
+        let idpacking = document.getElementById("pack_idpacking").value;
+        let caja      = document.getElementById("bulto-idbulto").value;
+        let formData  = new FormData(document.getElementById('Box-producto-form'));
+        formData.append("idpacking",idpacking);
+        formData.append("accion","close-box");
+
+        fetch('api/ap_packing.php',{method:'POST',body:formData})
+        .then((response) => response.json())
+        .then((data) => {
+            spinner.setAttribute('hidden', '');
+            if (data.response == 'success'){
+                print_box(caja);
+                global_box_open = 0 ; // Solo puede haber una caja abierta.....
+                document.getElementById("box-id-"+caja).classList.toggle("box-open");
+                document.getElementById("box-id-"+caja).classList.toggle("box-close");
+                document.getElementById("box-btn-"+caja).querySelector('#icon-lock').classList.toggle("icon-unlocked");
+                document.getElementById("box-btn-"+caja).querySelector('#icon-lock').classList.toggle("icon-lock");
+                const myModalBo = document.getElementById('BoxModal');
+                const modal     = bootstrap.Modal.getOrCreateInstance(myModalBo);
+                /* Si la caja que estoy cerrando es la última caja, entonces
+                   automáticamente agrego otra caja. De lo contrario el usuario solo 
+                   está corrigiendo alguna caja y no agrego nada */
+                if (caja == global_packing_cajas){
+                    add_box(idpacking);
+                }
+                modal.hide();
+                Swal.fire({icon:'success',title: 'Datos Guardados',showConfirmButton: false,timer: 1500});
+                delete myModalbo, modal;
+            }else{
+                Swal.fire({icon: data.error_tpo,title: 'Datos No guardados',text: data.error_msj});
+            }
+            delete idpacking, caja, formData;
+        }).catch((err) => {
+            spinner.setAttribute('hidden', '');
+            Swal.fire({icon:'error', title:'Error al guardar datos.', text:err.message});
+        });
+    }
+
+
+    /**********************************************************************
+    *                            BOX OPEN
+    * Permite abrir un bulto para modificar o eliminar productos.
+    **********************************************************************/
+    function box_open(caja){
+        if (caja == global_box_open){
+            return;
+        }
+
+        if (global_box_open == 0){
+            //console.log("Se procede abrir caja:"+caja);
+            const idpacking = document.getElementById("pack_idpacking").value;
+            let   formData  = new FormData();
+            formData.append("idpacking", idpacking);
+            formData.append("idbulto", caja);
+            formData.append("accion", "open-box");
+
+            fetch('api/ap_packing.php',{method:'POST',body:formData})
+            .then((response) => response.json())
+            .then((data) => {
+                spinner.setAttribute('hidden', '');
+                if (data.response == 'success'){
+                    global_box_open = caja ; // Solo puede haber una caja abierta.....
+                    document.getElementById("box-id-"+caja).classList.toggle("box-open");
+                    document.getElementById("box-id-"+caja).classList.toggle("box-close");
+                    document.getElementById("box-btn-"+caja).querySelector('#icon-lock').classList.toggle("icon-unlocked");
+                    document.getElementById("box-btn-"+caja).querySelector('#icon-lock').classList.toggle("icon-lock");
+                }else{
+                    Swal.fire({icon: data.error_tpo,title: 'Datos No guardados',text: data.error_msj});
+                }
+            }).catch((err) => {
+                console.log("rejected:---", err.message);
+            });
+            delete idpacking, formData;
+        }else{
+            Swal.fire({icon:'warning', title:'No se puede abrir bulto', text:"El bulto "+global_box_open+" se encuentra abierto"});    
+        }
+        delete caja;
+    }
+    
+    /**************************************************************************
+    * Añade una caja vacía al proceso de Packing
+    ***************************************************************************/
+    function add_box(idpacking){
+        if (global_box_open == 0){
+            spinner.removeAttribute('hidden');
+            let formData = new FormData();
+            formData.append("accion", "add_box");
+            formData.append("idpacking", document.getElementById("pack_idpacking").value);
+            formData.append("idbulto", global_packing_cajas+1);
+
+            fetch('api/ap_packing.php',{method:'POST', body:formData})
+            .then((response) => response.json())
+            .then((data) => {
+                spinner.setAttribute('hidden', '');
+                if (data.response == 'success'){
+                    global_packing_cajas++;
+                    global_box_open = global_packing_cajas;
+                    document.getElementById("boxes").insertAdjacentHTML('afterbegin', data.html);
+                }else{
+                    Swal.fire({icon: 'warning',title: 'No se puede abrir una Nueva Caja',text: data.error_msj});        
+                }
+            }).catch((err) => {
+                spinner.setAttribute('hidden', '');
+                Swal.fire({icon: 'error', title:'Error al crear caja', text:err.message});
+        });
+            delete formData;
+        }else{
+            Swal.fire({icon:'warning', title:'No se puede abrir una Nueva Caja', text:'La caja Nro.'+global_box_open+' aún está abierta'});
+        }
+    }
+
+    /**************************************************************************
+    * Elimina un producto de la caja indicada
+    * 1. Solo puede haber 1 caja abierta.
+    ***************************************************************************/
+    function box_del_row(bulto,index,idproducto){
+        spinner.removeAttribute('hidden');
+        let idpacking = document.getElementById("pack_idpacking").value;
+        let data = {idpacking:idpacking, accion:"remove-box-producto", idbulto:bulto, idproducto:idproducto};
+        let url = new URL(location.origin + '/wms/api/ap_packing.php');
+        fetch(url, {method:'DELETE', body:JSON.stringify(data), headers:{'Content-type':'application/json; charset=UTF-8'}})
+        .then((response) => response.json())
+        .then((data) => {
+            spinner.setAttribute('hidden', '');
+            if(data.response == 'success'){
+                const packing_obj      = document.getElementById("packing-"+idproducto);
+                const box_cantidad     = document.getElementById("box-prod-"+index).querySelector('#box_cantidad').value;
+                const detalle_cantidad = packing_obj.querySelector('#pacd_cantidad');
+                document.getElementById("hr-"+index).remove();
+                document.getElementById("box-prod-"+index).remove();
+                detalle_cantidad.value = parseInt(detalle_cantidad.value) - parseInt(box_cantidad);
+                packing_obj.style.display  = "flex"; 
+
+                if (detalle_cantidad.value == 0){
+                    document.getElementById("packing-"+idproducto).querySelector('#semaforo').className = 'semaforo semaforo-rojo';
+                }else{
+                    document.getElementById("packing-"+idproducto).querySelector('#semaforo').className = 'semaforo semaforo-amarillo';
+                }   
+                delete idpacking, data, url;
+                delete box_cantidad, detalle_cantidad, semaforo;
+            }else{
+                Swal.fire({icon: data.error_tpo, title:'Datos No guardados', text:data.error_msj});
+            }
+            delete idpacking, data, url;
+        }).catch((err) => {
+            spinner.setAttribute('hidden', '');
+            Swal.fire({icon: 'error', title:'Error al eliminar producto de caja', text:err.message});
+        });
+    }
+
+
+    /**********************************************************************
+    *                            BOX DELETE
+    * Borra o elimina un bulto vacío. Si tiene productos manda error.
+    **********************************************************************/
+    function box_delete(){
+        const idpacking = document.getElementById("pack_idpacking").value;
+        const idbulto   = document.getElementById('bulto-idbulto').value;
+
+        let data = {idpacking:idpacking, accion:"remove-box", idbulto:idbulto};
+        let url = new URL(location.origin + '/wms/api/ap_packing.php');
+        fetch(url, {method:'DELETE', body:JSON.stringify(data), headers:{'Content-type':'application/json; charset=UTF-8'}})
+        .then((response) => response.json())
+        .then((data) => {
+            spinner.setAttribute('hidden', '');
+            if(data.response == 'success'){
+                global_packing_cajas--;  // Variable global que contiene el número de bultos
+                global_box_open = 0 ; // Indica el número de la caja abierta actualmente 
+                const myModalBo = document.getElementById('BoxModal');
+                const modal     = bootstrap.Modal.getOrCreateInstance(myModalBo);
+                modal.hide();
+                document.getElementById("box-"+idbulto).remove();
+                delete myModalBo, modal;
+                delete idpacking, idbulto, data, url;
+            }else{
+                Swal.fire({icon: data.error_tpo, title:'No se puede eliminar bulto', text:data.error_msj});
+            }
+            delete idpacking, data, url;
+        }).catch((err) => {
+            spinner.setAttribute('hidden', '');
+            Swal.fire({icon: 'error', title:'Error al eliminar bulto', text:err.message});
+        });
+    }
+
+
+    /**************************************************************************
+    *                           PRINT BOX
+    ***************************************************************************/
+    function print_box(caja){
+        console.log("print_box() - global_selected_device");
+        console.log(global_selected_device);
+        console.log('el valor de global_selected_device en print_box  es ',global_selected_device);
+
+        if (global_selected_device == null){
+            Swal.fire({icon:'warning',title: 'Vuelva a intentar',text:"inicializando impresora...",showConfirmButton: false,timer: 2500});
+        }else{
+            const idpacking  = document.getElementById("pack_idpacking").value;
+            let data = {idpacking:idpacking, accion:"print-bulto-label", idbulto:caja};
+            let url = new URL(location.origin + '/wms/api/ap_label.php');
+            fetch(url, {method:'POST', body:JSON.stringify(data), headers:{'Content-type':'application/json; charset=UTF-8'}})
+            .then((response) => response.json())
+            .then((data) => {
+                if(data.response == 'success'){
+                    global_selected_device.send(data.etiqueta, undefined, undefined);
+                    delete url, data;
+                }else{
+                    Swal.fire({icon: data.error_tpo, title:'Error al imprimir', text:data.error_msj});
+                }
+            });
+        }
+    }
+
+    /**************************************************************************
+    *                           PRINT BOX MODAL
+    * Es el botón de imprimir que está dentro de la pantalla modal.
+    ***************************************************************************/
+    function print_box_modal(){
+        let box = document.getElementById("bulto-idbulto").value;
+        print_box(box);
+        delete box;
+    }    
+
+    /**************************************************************************
+    *                           PRINT ALL
+    * Manda a imprimir todas las etiquetas de las cajas actualmente cerradas
+    ***************************************************************************/
+    function print_all(){
+        if (global_selected_device == null){
+            Swal.fire({icon:'warning',title: 'Vuelva a intentar',text:"inicializando impresora...",showConfirmButton: false,timer: 2500});
+        }else{
+            const idpacking = document.getElementById("pack_idpacking").value;
+            let data = {idpacking:idpacking, accion:"print-all-label"};
+            let url  = new URL(location.origin + '/wms/api/ap_label.php');
+            fetch(url, {method:'POST', body:JSON.stringify(data), headers:{'Content-type':'application/json; charset=UTF-8'}})
+            .then((response) => response.json())
+            .then((data) => {
+                if(data.response == 'success'){
+                    global_selected_device.send(data.etiqueta, undefined, undefined);
+                    delete url, data;
+                }else{
+                    Swal.fire({icon: data.error_tpo, title:'Error al imprimir', text:data.error_msj});
+                }
+            });
+        }
+    }
+
+
+    /**************************************************************************
+    * SUBMIT en Anclaje de Productos al Pedido.
+    ***************************************************************************/
+    function guardar(event) {
+        event.preventDefault();
+        Swal.fire({title:'¿Cerrar tarea de packing?',
+                    icon: 'question',
+        showCancelButton: true,
+        confirmButtonColor: '#339933',
+        cancelButtonColor: '#cc3300',
+        confirmButtonText: 'Si',
+        cancelButtonText: 'No'
+        }).then((result) => {
+            if (result.value){
+                spinner.removeAttribute('hidden');
+                let formData = new FormData(document.getElementById('packing-header-form'));
+                formData.append("accion","packing-close");
+                // formData.append("idpedido",document.getElementById("packing-idpedido").innerText);
+                fetch('api/ap_packing.php',{method:'POST',body:formData})
+                .then((response) => response.json())
+                .then((data) => {
+                    spinner.setAttribute('hidden', '');
+                    if(data.response == 'success'){
+                        Swal.fire({icon:'success', title:'Datos Guardados', showConfirmButton:false, timer:1500});
+                        delete formData;
+                        setTimeout(() => {window.location.replace(location.origin + "/wms/packing_pistas.php")}, 1750);
+                    }else{
+                        Swal.fire({icon: data.error_tpo,title: 'Datos No guardados',text: data.error_msj});
+                    }
+                    delete formData;
+                }).catch((err) => {
+                    spinner.setAttribute('hidden', '');
+                    Swal.fire({icon: 'error', title:'Error al cerrar tarea de packing', text:err.message});
+                });
+            }
+        });
+    }    
+
+    /*********************************************************
+    *               INSERT NOMBRES PRODUCTOS
+    * Esta función es importante. Ayuda mucho al desempeño del Api
+    * al buscar los productos de una caja o bulto. Ya que al buscar
+    * los productos no tiene que buscar el nombre en la tabla de productos.
+    * Recuerdese que la información necesaria está en 2 base de datos
+    * diferentes.
+    *********************************************************/ 
+    function insert_nombres_productos(){
+        /* buscamos los objetos códigos de productos*/
+        const productos_box  = document.querySelectorAll('.box-prod');
+        for (let i = 0; i < productos_box.length; i++) {
+            const codigo = productos_box[i].querySelector('#box_idproducto').value;
+            for(let j in global_packing_productos){
+                if (Object.values(global_packing_productos[j]).indexOf(codigo) >= 0){
+                    const producto = Object.values(global_packing_productos[j])[5];
+                    productos_box[i].querySelector('#box_descripcion_ped').value = producto;
+                    delete producto;
+                }
+            }
+            delete codigo;            
+        }
+        delete productos_box;
+    }
+
+
+    /*********************************************************
+    *                    AUTO BOX
+    * Genera bultos de manera automática como por ejemplo los
+    * cuñetes o aquellos productos cuyas cantidades cumplan
+    * con el bulto original.
+    *********************************************************/
+    function auto_box(){
+        if (global_box_open == 0){
+            spinner.removeAttribute('hidden');
+            let idpacking = document.getElementById("pack_idpacking").value;
+            let formData = new FormData();
+            formData.append("accion", "auto-box");
+            formData.append("idpacking", idpacking);
+            formData.append("bulto", global_packing_cajas);
+            // console.log("global_packing_cajas:"+global_packing_cajas);
+            fetch('api/ap_packing.php',{method:'POST', body:formData})
+            .then((response) => response.json())
+            .then((data) => {
+                spinner.setAttribute('hidden','');
+                if(data.response == 'success'){
+                    global_packing_cajas = data.bulto;  // Variable global que contiene el número de bultos
+                    carga_tarea_packing(idpacking);
+                }else{
+                    Swal.fire({icon: 'warning',title: 'Error al generar bultos automaticamente',text: data.error_msj});
+                }
+            }).catch((err) => {
+                spinner.setAttribute('hidden', '');
+                Swal.fire({icon: 'error', title:'Error en automatización', text:err.message});
+            });
+            delete formData, idpacking;
+        }else{
+            Swal.fire({icon:'warning', title: 'Verifique bultos abiertos',text: 'No se puede ejecutar la tarea de automatización si existen bultos abiertos'});
+        }
+    }
+
+
+    /*********************************************************
+    *                GET LABEL PRINTER
+    * Devuelve la impresora que tiene la mesa a la que está
+    * asignado el embalador.
+    *********************************************************/
+    function get_label_printer(){
+        let url = new URL(location.origin + '/wms/api/ap_packing_estaciones.php');
+        url.searchParams.append('accion', 'packing-printer');
+        fetch(url,{method:'GET',headers: {'Content-type':'application/json; charset=UTF-8'}})
+            .then((response) => response.json())
+            .then((responseJson) =>{
+                if (responseJson.response == 'success'){
+                    // printer = responseJson.printer;
+                    console.log("Impresora Asignada a Mesa:"+responseJson.printer);
+                    global_packing_printer = responseJson.printer
+                    setup_bp() ;
+                }else{
+                    Swal.fire({icon: 'error', title:'Error buscando impresora de etiquetas asignada', text:'Notificar Urgente a Supervisor o Soporte Técnico.'});
+                }
+                spinner.setAttribute('hidden','');
+        });
+        url = null;
+    }
+
+
+    /*********************************************************
+    * SETUP BROWSER BROWSER
+    *********************************************************/ 
+    function setup_bp(){
+        //Discover any other devices available to the application
+        BrowserPrint.getLocalDevices(function(device_list){
+            //const searchIndex = device_list.findIndex((zebra) => zebra.name=="\\\\packing03\\ZDesigner GC420t03 (EPL)");
+            //const searchIndex = device_list.findIndex((zebra) => zebra.name=="ZDesigner GC420t");
+            // Esta es la impresora conectada a mesa 4 donde está Julio Sanchez
+            //const searchIndex = device_list.findIndex((zebra) => zebra.name=="ZDesigner GC420t (EPL)");
+            // Esta es la impresora conectada a la mesa 1 (cesar padron)
+            //const searchIndex = device_list.findIndex((zebra) => zebra.name=="29j203300887");
+            // Esta es la impresora de la Mesa1 que está pegada a facturación
+            // console.log("global_packing_printer:"+global_packing_printer);
+            // console.log("device list:");
+            // console.log(device_list);
+            // console.log(escape(global_packing_printer));
+            // console.log(escape('\\\\packing03\\ZDesigner GC420t03 (EPL)'));
+            // if (escape(global_packing_printer) == escape("\\\\\\\\PACKING03\\\\ZDesigner GC420t03 (EPL)")){
+            //     console.log("si");
+            //     searchIndex = device_list.findIndex((zebra) => zebra.name=="\\\\PACKING03\\ZDesigner GC420t03 (EPL)");
+            // }else if (escape(global_packing_printer) == escape("\\\\PACKING03\\\\ZDesigner GC420t03 (EPL)")){
+            //     console.log("si2");
+            //     searchIndex = device_list.findIndex((zebra) => zebra.name=="\\\\PACKING03\\ZDesigner GC420t03 (EPL)");
+            // }else{
+            //      searchIndex = device_list.findIndex((zebra) => zebra.name == global_packing_printer)
+            //      console.log("NO");
+            // }
+            // Importante la función ESCAPE() cuando son impresoras de red
+            let searchIndex = device_list.findIndex((zebra) => escape(zebra.name) == escape(global_packing_printer))
+            global_selected_device = device_list[searchIndex];
+            console.log('el valor de searchIndex es ',searchIndex);
+            console.log('el valor de global_packing_printer es ',global_packing_printer);
+
+            device_list = null;
+            searchIndex = null;
+        }, function(){alert("Error getting local devices")},"printer");
+    }
+
+
+    /**************************************************************************
+    * CARGA PICKING DATA
+    ***************************************************************************/
+    function carga_preparador(idpicking){
+        // Hacemos un fetch api mandando el Nro de la Tarea de Picking.
+        let url = new URL(location.origin + '/wms/api/ap_picking_data.php');
+        url.searchParams.append('idpicking', idpicking);
+        url.searchParams.append('accion', 'picking-master');
+
+        fetch(url,{method:'GET',headers: {'Content-type':'application/json; charset=UTF-8'}})
+        .then((response) => response.json())
+        .then((responseJson) => {
+            document.getElementById("packing-preparador").innerText = responseJson.preparador;
+            document.getElementById("packing-chequeador").innerText = responseJson.userverif;
+        }).catch((err) => {
+            Swal.fire({icon: 'error', title:'No se puede cargar Tarea de Packing', text:err.message});
+        });
+
+        idpicking = url = null;
+    };
+
+</script>
+

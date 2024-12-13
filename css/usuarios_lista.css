@@ -1,0 +1,176 @@
+body {
+    background: #ffffff;
+}
+
+body:not(.modal-open){
+    /* Esta linea si se quita se observa un comportamiento anormal cuando aparecen
+    las ventanas modal */
+    padding-right: 0px !important;
+}
+
+#barra-cont-form-search{
+    opacity : 0;
+}
+
+#usuarios-tabla {
+    border-radius: 10px;
+    overflow: hidden;
+    width: 100%;
+}
+  
+#usuarios-tabla td, #usuarios-tablable th {
+    /*color: #2b686e; */
+    padding: 10px;
+}
+  
+#usuarios-tabla td {
+    text-align: center;
+    vertical-align: middle;
+}
+
+#usuarios-tabla th {
+    background-color: #d8ffd3;
+    font-weight: 300;
+    text-align: center;
+}
+
+#usuarios-tabla tr:nth-child(2n) {
+    background-color: white;
+}
+
+#usuarios-tabla tr:nth-child(2n+1) {
+    background-color:#F2F2F2;
+}
+
+#div_boton_mas {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+
+#lista_carga_mas {
+    width: 80%;
+    max-width: 300px;
+}
+
+.col_actions{
+    display: flex;
+    flex-wrap: nowrap;
+    gap: 4px;
+}
+
+@media screen and (max-width: 700px) {
+    #usuarios-tabla tr {
+        width: 100vw;
+    }
+    
+    #usuarios-tabla td {
+        text-align: left;
+    } 
+    
+    #usuarios-tabla, tr, td {
+      display: block;
+    }
+  
+    #usuarios-tabla td:first-child {
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+        text-align: center;
+        width: 150px;
+    }
+    #usuarios-tabla td:not(:first-child) {
+        clear: both;
+        margin-left: 150px;
+        padding: 4px 20px 4px 90px;
+        position: relative;
+        text-align: left;
+    }
+
+    #usuarios-tabla td:not(:first-child):before {
+        color: #026222;
+        content: "";
+        display: block;
+        left: 0;
+        position: absolute;
+    }
+
+    #usuarios-tabla td:nth-child(2):before {
+        content: "Nombre:";
+    }
+    #usuarios-tabla td:nth-child(3):before {
+        content: "Correo:";
+    }
+    #usuarios-tabla td:nth-child(4):before {
+        content: "Estatus:";
+    }
+    #usuarios-tabla td:nth-child(5):before {
+        content: "Rol:";
+    }
+    #usuarios-tabla td:nth-child(6):before {
+        content: "Acción:";
+    }
+
+    #usuarios-tabla tr {
+        padding: 10px 0;
+        position: relative;
+    }
+    
+    .tabla-header{
+        display: none;
+    }
+
+  }
+
+
+  @media screen and (max-width: 500px) {
+    .header {
+      background-color: transparent;
+      color: #6b6b6b;
+      font-size: 2em;
+      font-weight: 700;
+      padding: 0;
+      text-shadow: 2px 2px 0 rgba(0, 0, 0, 0.1);
+    }
+  
+    #usuarios-tabla td:first-child {
+      background-color: #d8ffd3;
+      border-bottom: 1px solid #dee2e6;
+      border-radius: 10px 10px 0 0;
+      position: relative;
+      top: 0;
+      transform: translateY(0);
+      width: 100vw;
+    }
+
+    #usuarios-tabla td:not(:first-child) {
+      margin: 0;
+      padding: 5px 1em;
+      width: 100%;
+    }
+
+    #usuarios-tabla td:not(:first-child):before {
+      font-size: 0.8em;
+      padding-top: 0.3em;
+      position: relative;
+    }
+
+    #usuarios-tabla td:last-child {
+      padding-bottom: 1rem !important;
+    }
+  
+    #usuarios-tabla tr {
+      background-color: white !important;
+      border: 1px solid #dee2e6;
+      border-radius: 10px;
+      box-shadow: 2px 2px 0 rgba(0, 0, 0, 0.1);
+      margin: 0.5rem 0;
+      padding: 0;
+    }
+  
+    /* #usuarios-tabla {
+      border: none;
+      box-shadow: none;
+      overflow: visible;
+    } */
+}

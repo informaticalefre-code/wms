@@ -1,0 +1,28 @@
+Para llevarse a producción
+1. Eliminar caja vacía al momento de guardar una tarea de packing
+2. Ejecutar consulta para ver todos los collate de la base de datos WMS y modificarlos
+3. Modificar el trigger TPICKING_TR02.
+4. Modificar función fdif_picking_pedidos y fdif_packing_pedidos
+
+
+
+
+
+
+
+	/* Aquí eliminamos cualquier caja vacía que no tenga productos,
+	   y solo se ejecuta al cerrar la tarea de packing*/
+	/*DELETE FROM vpacking_bultos
+    WHERE vpacking_bultos.pack_idpacking = new.pack_idpacking
+      AND vpacking_bultos.pack_status = 0
+	   AND NOT EXISTS (SELECT vpacking_productos.pacp_idproducto  
+		                  FROM vpacking_productos 
+							  WHERE vpacking_productos.pacp_idpacking = vpacking_bultos.pack_idpacking 
+							    AND vpacking_productos.pacp_idbulto = vpacking_bultos.pack_idbulto);*/
+
+
+/* Aquí para ver todos los COLLATE.
+SELECT table_schema, table_name, column_name, character_set_name, collation_name
+FROM information_schema.columns
+WHERE table_schema = 'wms' AND collation_name IS NOT null
+ORDER BY table_schema, table_name,ordinal_position; 

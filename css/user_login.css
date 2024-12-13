@@ -1,0 +1,115 @@
+* {
+    margin:0;
+    padding:0;
+    box-sizing: border-box;
+    font-size: 1rem;
+    font-family: Arial, Helvetica, "Rockwell", sans-serif;
+    text-rendering: optimizelegibility;	
+    scroll-behavior: smooth;
+}
+
+html{
+    height: 100%;
+}
+
+body{
+    width: 100%;
+}   
+
+a {
+    color:white;
+    font-weight: 700;
+    text-decoration: none;
+}
+
+a:hover {
+    color:rgb(255, 255, 0);
+}
+ 
+#main_screen {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    background-image: url("../img/Fondo-Almacen-06.jpg");
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    height: 100vh;
+}    
+
+#login-container{
+    display: flex;
+    flex-direction: column;
+    animation: fadeInAnimation ease 1s;
+    animation-iteration-count: 1;
+    animation-fill-mode: forwards;
+  }
+
+@keyframes fadeInAnimation {
+    0% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+    }
+}
+
+
+#login-title{
+    padding: 3% 5%;
+    padding-bottom:5%;
+}
+
+#login-header {
+    font-weight: 600px;
+    text-align: center;
+}
+
+#login-content {
+    background: rgba(0, 0, 0, 0.5);  
+    color: #ffffff;
+    padding: 5% 5%;
+    /* padding: 30px 30px; */
+}
+
+input {
+    background-color: black; 
+    color:white;
+    height: 50px;
+    border-left: 5px solid transparent;
+    font-size: 16px;
+}
+
+input:focus{
+    border-color: #4bccff;
+}
+
+#container-msj-error {
+    display: none;
+}
+
+
+/* 
+login-footer {
+    color: #ffffff;
+} */
+
+/* Medium devices (tablets, less than 992px) */
+/* @media (max-width: 991.98px) {
+
+} */
+
+/* Medium devices (tablets, less than 992px)*/
+@media (min-width: 991.98px) { 
+    #main_screen {
+        align-items: center;
+    }        
+
+    #login-container{
+        justify-content: space-around;
+        min-height:150px;
+        max-height:400px;
+        width: 90%;
+        max-width:600px;
+    }
+}

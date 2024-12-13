@@ -1,0 +1,307 @@
+body {
+    background: #ffffff;
+}
+
+body:not(.modal-open){
+    /* Esta linea si se quita se observa un comportamiento anormal cuando aparecen
+    las ventanas modal */
+    padding-right: 0px !important;
+}
+
+#barra-cont-form-search{
+    opacity : 0;
+}
+
+#detalle-tabla {
+    border-radius: 10px;
+    overflow: hidden;
+    width: 100%;
+}
+
+#detalle-tabla td, #detalle-tabla th {
+    /*color: #2b686e; */
+    padding: 5px;
+}
+
+#detalle-tabla td:first-child {
+    min-width: 110px;
+}
+
+#detalle-tabla td {
+    text-align: center;
+}
+
+#detalle-tabla td:nth-child(2) {
+    text-align: left;
+}
+  
+#detalle-tabla th {
+    background-color: #d8ffd3;
+    font-weight: 300;
+    text-align: center;
+    vertical-align: middle;    
+}
+
+#detalle-tabla tr:nth-child(2n) {
+    background-color: white;
+}
+
+#detalle-tabla tr:nth-child(2n+1) {
+    /* background-color:#F2F2F2; */
+    background-color:#e3dfdf;
+}
+
+#detalle-tabla td:nth-child(4), #detalle-tabla td:nth-child(5), #detalle-tabla td:nth-child(6), #detalle-tabla td:nth-child(8){
+    text-align: right;
+}
+
+#div_boton_mas {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+
+#lista_carga_mas {
+    width: 80%;
+    max-width: 300px;
+}
+
+.col_actions{
+    display: flex;
+    flex-wrap: nowrap;
+    gap: 4px;
+}
+
+label {
+    color: #616161;
+}
+
+#ProductoModalBody-Info {
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+    flex-wrap: wrap;
+}
+
+#ProductoModalBody-Info input {
+    border: none;
+}
+
+#ProductoModalBody-Info input:disabled {
+    color:  #474747;
+}
+
+#ubicaciones-prod{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.ubicaciones-line{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    flex-wrap: nowrap;
+    padding:0;
+    max-width: 300px;
+}
+
+.container-linea{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    box-sizing: border-box;
+    align-content: center;
+    justify-content: center;
+    align-items: center;
+    gap: 15px;    
+}
+
+.container-campo{
+    display: flex;
+    flex-direction: row;
+    flex-wrap:nowrap;
+    box-sizing: border-box;
+    align-items: center;
+}
+
+.select-usr{
+    width: 150px;
+}
+
+.label-campo{
+    width: -webkit-fill-available;
+}
+
+/* RELACIONADO CON EL CAMPO DE CANTIDAD EN LA PANTALLA MODAL */
+.cantidad_conteo{
+    -webkit-appearance: textfield;
+    -moz-appearance: textfield;
+    appearance: textfield;
+    text-align: center;
+    font-size: 1.5rem;
+    width: 100px;
+}
+
+.number-input {
+    border: 2px solid #ddd;
+    display: inline-flex;
+    -webkit-box-shadow: 0px 5px 15px 4px rgba(42,42,42,0.39);
+    box-shadow: 0px 5px 15px 4px rgba(42,42,42,0.39);
+}
+
+.number-input,
+.number-input * {
+    box-sizing: border-box;
+}
+
+.number-input button {
+    outline:none;
+    /* -webkit-appearance: none; */
+    background-color: transparent;
+    border: none;
+    align-items: center;
+    justify-content: center;
+    width: 3rem;
+    height: 3rem;
+    cursor: pointer;
+    margin: 0;
+    position: relative;
+    font-size: 2rem;
+    color:darkgray;
+}
+/* RELACIONADO CON EL CAMPO DE CANTIDAD EN LA PANTALLA MODAL */
+
+/* Pantalla Modal */
+#inventario-producto-detalle{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+
+@media screen and (max-width: 700px) {
+    #detalle-tabla tr {
+        width: 100vw;
+    }
+
+    #detalle-tabla, tr, td {
+      display: block;
+    }
+  
+    #detalle-tabla td:first-child {
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+        width: 110px;
+    }
+    #detalle-tabla td:not(:first-child) {
+        clear: both;
+        margin-left: 100px;
+        padding: 4px 20px 4px 90px;
+        position: relative;
+        text-align: left;
+    }
+    #detalle-tabla td:not(:first-child):before {
+        color: #026222;
+        content: "";
+        display: block;
+        left: 0;
+        position: absolute;
+    }
+    #detalle-tabla td:nth-child(2):before {
+        content: "Nombre:";
+    }
+    #detalle-tabla td:nth-child(3):before {
+        content: "Ubicación:";
+    }
+    #detalle-tabla td:nth-child(4):before {
+        content: "Existencia:";
+    }
+    #detalle-tabla td:nth-child(5):before {
+        content: "Conteo 1:";
+    }
+
+    #detalle-tabla td:nth-child(6):before {
+        content: "Conteo 2:";
+    }
+    #detalle-tabla td:nth-child(7):before {
+        content: "Coincide:";
+    }
+    #detalle-tabla td:nth-child(8):before {
+        content: "Conteo 3:";
+    }
+    #detalle-tabla td:nth-child(9):before {
+        content: "Definitivo:";
+    }
+    #detalle-tabla td:nth-child(10):before {
+        content: "Acción:";
+    }
+
+    #detalle-tabla tr {
+        padding: 10px 0;
+        position: relative;
+    }
+    
+    .tabla-header{
+        display: none;
+    }
+  }
+
+  @media screen and (max-width: 500px) {
+    .header {
+      background-color: transparent;
+      color: #6b6b6b;
+      font-size: 2em;
+      font-weight: 700;
+      padding: 0;
+      text-shadow: 2px 2px 0 rgba(0, 0, 0, 0.1);
+    }
+  
+    #detalle-tabla td:first-child {
+      /* background-color: #d8ffd3; */
+      background-color: #cff878;
+      border-bottom: 1px solid #dee2e6;
+      border-radius: 10px 10px 0 0;
+      position: relative;
+      top: 0;
+      transform: translateY(0);
+      width: 100vw;
+    }
+
+    #detalle-tabla td:not(:first-child) {
+      margin: 0;
+      padding: 2px 1em;
+      width: 100%;
+    }
+
+    #detalle-tabla td:not(:first-child):before {
+      font-size: 0.8em;
+      padding-top: 0.3em;
+      position: relative;
+    }
+
+    #detalle-tabla td:last-child {
+      padding-bottom: 1rem !important;
+    }
+  
+    #detalle-tabla tr {
+      background-color: white !important;
+      border: 1px solid #dee2e6;
+      border-radius: 10px;
+      box-shadow: 2px 2px 0 rgba(0, 0, 0, 0.1);
+      margin: 0.5rem 0;
+      padding: 0;
+    }
+  
+    .table-pedidos {
+      border: none;
+      box-shadow: none;
+      overflow: visible;
+    }
+
+    .container-linea{
+        flex-wrap:wrap;
+    }
+}
